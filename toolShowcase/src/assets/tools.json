@@ -1,0 +1,42 @@
+[
+  {
+    "name": "Webpack",
+    "description": "A powerful bundler and build tool for JavaScript applications, supporting code splitting and various loaders."
+  },
+  {
+    "name": "React",
+    "description": "A JavaScript library for building user interfaces, focusing on component-based architecture."
+  },
+  {
+    "name": "Angular",
+    "description": "A comprehensive JavaScript framework for building dynamic single-page applications, using TypeScript as its main language."
+  },
+  {
+    "name": "Vue",
+    "description": "A progressive JavaScript framework for building user interfaces, with a focus on ease of integration and flexibility."
+  },
+  {
+    "name": "Node.js",
+    "description": "A JavaScript runtime built on Chrome's V8 JavaScript engine, designed for server-side and networking applications."
+  },
+  {
+    "name": "Gulp",
+    "description": "A task automation tool for JavaScript developers, designed to automate repetitive tasks such as minification, compilation, and testing."
+  },
+  {
+    "name": "Grunt",
+    "description": "A JavaScript task runner, providing a wide ecosystem of plugins for automating workflows."
+  },
+  {
+    "name": "Express",
+    "description": "A minimal and flexible Node.js web application framework, providing robust features for building web and mobile applications."
+  },
+  {
+    "name": "Next.js",
+    "description": "A React framework for building server-side rendered and static web applications with ease."
+  },
+  {
+    "name": "Svelte",
+    "description": "A new approach to building user interfaces, where the framework compiles your code to highly optimized vanilla JavaScript at build time."
+  }
+]

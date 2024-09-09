@@ -1,0 +1,29 @@
+# Build Tool Showcase
+
+## Project Description
+
+Build Tool Showcase is a simple web application designed to demonstrate the use of various build tools and package managers in a web development environment. It displays a list of popular build tools, utilizes modern JavaScript features (ES6+), and implements best practices for web development, including dependency management, build configuration, and optimization.
+
+This project is part of the Week 0.1 Lab Activity and focuses on using Webpack as the build tool, npm as the package manager, and various other tools like Babel, Sass, Jest, and ESLint.
+
+## Features
+
+- Displays a list of popular build tools with descriptions from a JSON file.
+- Uses modern ES6+ JavaScript syntax and features.
+- Styling with Sass (SCSS).
+- External JavaScript library integration (Lodash).
+- Development and production build configurations.
+- Babel integration for cross-browser compatibility.
+- Source maps for easier debugging.
+- Code splitting and minification in production builds.
+- Unit testing with Jest.
+- Linting with ESLint.
+
+## Setup Instructions
+
+1. Clone the repository:
+   ```bash
+   git clone <https://github.com/irakizaDidier/Week3.git>
+   cd build-tool-showcase
+   npm start
+   ```
