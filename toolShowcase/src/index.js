@@ -4,8 +4,6 @@ import _ from 'lodash';
 
 document.addEventListener('DOMContentLoaded', () => {
     const contentDiv = document.getElementById('content');
-
-    // Create a container for the cards
     const toolContainer = document.createElement('div');
     toolContainer.className = 'tool-container';
 
