@@ -56,6 +56,3 @@ jest-test-results.json
 
 # VSCode settings
 .vscode/
-
-# MacOS system files
-.DS_Store
