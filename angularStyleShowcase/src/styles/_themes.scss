@@ -1,0 +1,54 @@
+$light-theme-colors: (
+  "primary": #1ea575,
+  "secondary": #87635a,
+  "background": #f9f9f9,
+  "text": #333333,
+  "border": #dedede,
+  "hover": #b36762,
+  "footer": #081913,
+  "button": #87635a,
+);
+
+$dark-theme-colors: (
+  "primary": #0e4632,
+  "secondary": #f5eeec,
+  "background": #1c1c1c,
+  "text": #e5e5e5,
+  "border": #444444,
+  "hover": #d35400,
+  "footer": #182420,
+  "button": #44322e,
+);
+
+$font-sizes: (
+  "xs": 12px,
+  "sm": 14px,
+  "md": 16px,
+  "lg": 18px,
+  "xl": 24px,
+);
+
+$font-weights: (
+  "normal": 400,
+  "bold": 700,
+  "extra-bold": 900,
+);
+
+$spacing: (
+  "xs": 4px,
+  "sm": 8px,
+  "md": 16px,
+  "lg": 24px,
+  "xl": 32px,
+);
+
+@mixin theme-colors($theme) {
+  @each $key, $value in $theme {
+    --#{$key}: #{$value};
+  }
+}
+
+body {
+  @include theme-colors($light-theme-colors);
+  @include theme-colors($dark-theme-colors);
+}

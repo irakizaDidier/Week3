@@ -1,17 +1,22 @@
+@import "./variables";
+
 .header {
-  background-color: $primary-color;
-  padding: $spacing-unit;
+  background-color: var(--primary);
+  padding: map-get($spacing, "md");
 
   .nav-item {
-    color: white;
+    color: var(--text);
     &:hover {
-      color: $secondary-color;
+      color: var(--secondary);
     }
   }
 }
 
 .footer {
   @extend %text-center !optional;
+  background-color: var(--background);
+  color: var(--text);
   display: flex;
   justify-content: center;
+  padding: map-get($spacing, "md");
 }

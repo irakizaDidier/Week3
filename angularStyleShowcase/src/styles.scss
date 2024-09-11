@@ -1,7 +1,13 @@
-/* You can add global styles to this file, and also import other style files */
-
 @import "./styles/variables";
 @import "./styles/mixins";
 @import "./styles/functions";
 @import "./styles/global";
 @import "./styles/components";
+@import "./styles/themes";
+
+body {
+  @include theme($light-theme-colors);
+}
+body.dark-theme {
+  @include theme($dark-theme-colors);
+}

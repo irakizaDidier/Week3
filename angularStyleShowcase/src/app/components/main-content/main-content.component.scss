@@ -1,96 +1,59 @@
 @import "../../../styles.scss";
 
-.featured-banner {
-  text-align: center;
-  margin-bottom: px-to-rem(32px);
-
-  img {
-    width: 100%;
-    max-width: 1000px;
-    border-radius: px-to-rem(8px);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
-
-  h2 {
-    font-size: px-to-rem(28px);
-    font-weight: bold;
-    margin-top: px-to-rem(16px);
-  }
-
-  p {
-    color: $primary-color;
-    margin-top: px-to-rem(8px);
-    font-size: px-to-rem(16px);
-  }
+.landing-page-container {
+  font-family: "Arial", sans-serif;
+  color: var(--text);
+  background-color: var(--background);
 }
 
-.product-list {
+.hero {
   display: flex;
+  align-items: center;
   justify-content: center;
-  gap: px-to-rem(24px);
-  margin-bottom: px-to-rem(40px);
-
-  .product-card {
-    background-color: white;
-    border-radius: px-to-rem(8px);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    padding: px-to-rem(16px);
-    text-align: center;
-
-    img {
-      width: 100%;
-      height: auto;
-      border-radius: px-to-rem(8px);
-      margin-bottom: px-to-rem(16px);
-    }
-
-    h4 {
-      font-size: px-to-rem(20px);
-      font-weight: 600;
-      margin-bottom: px-to-rem(8px);
-    }
-
-    p {
-      color: #666;
-      font-size: px-to-rem(14px);
-      margin-bottom: px-to-rem(16px);
-    }
-
-    button {
-      @include button-styles($primary-color, white);
-    }
-  }
-}
-
-.orders {
-  background-color: $footer-color;
-  padding: px-to-rem(16px);
-  border-radius: px-to-rem(8px);
-  margin-bottom: px-to-rem(40px);
+  min-height: 100vh;
+  background-color: var(--primary);
   color: white;
+  text-align: center;
 
-  .order-item {
-    border-bottom: 1px solid #ccc;
-    padding-bottom: px-to-rem(16px);
-    margin-bottom: px-to-rem(16px);
-
-    h4 {
-      font-size: px-to-rem(18px);
-      font-weight: bold;
+  .hero-content {
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
     }
-
     p {
-      font-size: px-to-rem(14px);
-      margin-bottom: px-to-rem(8px);
+      font-size: 1.25rem;
+      margin-bottom: 2rem;
     }
-
-    .view-details {
-      color: $secondary-color;
-      text-decoration: underline;
+    .cta-button {
+      padding: 1rem 2rem;
+      background-color: var(--button);
+      color: var(--text);
+      border: none;
+      border-radius: 5px;
       cursor: pointer;
       &:hover {
-        color: darken($secondary-color, 10%);
+        background-color: var(--secondary);
       }
+    }
+  }
+}
+
+.features {
+  display: flex;
+  justify-content: space-around;
+  padding: 3rem 0;
+  background-color: var(--background);
+
+  .feature-card {
+    text-align: center;
+    padding: 1rem;
+    width: 30%;
+    h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    p {
+      font-size: 1rem;
     }
   }
 }

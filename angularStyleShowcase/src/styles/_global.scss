@@ -1,9 +1,14 @@
+@import "./variables";
+@import "./mixins";
+
 body {
   font-family: $font-family;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   height: 100%;
+  background-color: var(--background);
+  color: var(--text);
 }
 
 .container {

@@ -1,27 +1,16 @@
-$primary-color: #3498db;
-$secondary-color: #2ecc71;
+@import "./themes";
+
+$primary-color: map-get($light-theme-colors, "primary");
+$secondary-color: map-get($light-theme-colors, "secondary");
 $footer-color: #505151;
 $font-family: "Roboto", sans-serif;
 $spacing-unit: 8px;
-
-$light-theme: (
-  primary-color: #ffffff,
-  secondary-color: #3498db,
-  background-color: #f8f9fa,
-  text-color: #333333,
-);
-
-$dark-theme: (
-  primary-color: #333333,
-  secondary-color: #2ecc71,
-  background-color: #2c3e50,
-  text-color: #ecf0f1,
-);
 
 ul,
 ol {
   list-style: none;
 }
+
 a {
   text-decoration: none;
 }

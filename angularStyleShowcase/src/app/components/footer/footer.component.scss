@@ -1,8 +1,8 @@
 @import "../../../styles.scss";
+
 .footer {
   @extend %text-center !optional;
-  background-color: $footer-color;
-  color: white;
-  padding: $spacing-unit;
-  // border: 5px solid black;
+  background-color: var(--footer);
+  color: var(--text);
+  padding: px-to-rem(map-get($spacing, "lg"));
 }

@@ -1,70 +1,123 @@
 @import "../../../styles.scss";
 
 .product-list-container {
-  padding: px-to-rem(20px);
-  text-align: center;
+  background-color: var(--background);
+  padding: map-get($spacing, "lg");
+  min-height: 100vh;
 
-  .product-list-title {
-    margin-bottom: px-to-rem(20px);
-    color: $primary-color;
-    font-size: px-to-rem(24px);
+  .wave-loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Adjust if needed */
+    div {
+      background-color: var(--primary);
+      height: 20px;
+      width: 5px;
+      margin: 0 3px;
+      animation: wave 1.2s infinite ease-in-out;
+    }
+    div:nth-child(1) {
+      animation-delay: -1.1s;
+    }
+    div:nth-child(2) {
+      animation-delay: -1s;
+    }
+    div:nth-child(3) {
+      animation-delay: -0.9s;
+    }
+    div:nth-child(4) {
+      animation-delay: -0.8s;
+    }
+    div:nth-child(5) {
+      animation-delay: -0.7s;
+    }
   }
 
-  .product-list {
-    list-style: none;
-    padding: 0;
+  @keyframes wave {
+    0%,
+    40%,
+    100% {
+      transform: scaleY(1);
+    }
+    20% {
+      transform: scaleY(2);
+    }
+  }
+
+  section {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: $spacing-unit * 2;
+    gap: map-get($spacing, "md");
+  }
 
-    .product-item {
-      background-color: lighten($primary-color, 20%);
-      border-radius: 8px;
-      overflow: hidden;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      transition: transform 0.3s, box-shadow 0.3s;
+  .product-card {
+    background-color: var(--background);
+    border: 1px solid var(--border);
+    height: 28rem;
+    padding: map-get($spacing, "md");
+    border-radius: 8px;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 
-      &:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
-        background-color: $primary-color;
-      }
+    &:hover {
+      background-color: var(--hover);
+      transform: scale(1.05);
+    }
+  }
 
-      .product-details {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: $spacing-unit * 2;
+  .product-image {
+    width: 100%;
+    height: 15rem;
+    border-radius: 4px;
+    margin-bottom: map-get($spacing, "sm");
+  }
 
-        .product-image {
-          width: 100%;
-          height: auto;
-          border-bottom: 1px solid $secondary-color;
-          margin-bottom: $spacing-unit;
-        }
+  h3 {
+    font-size: map-get($font-sizes, "lg");
+    font-weight: map-get($font-weights, "bold");
+    color: var(--text);
+    margin-bottom: map-get($spacing, "xs");
+  }
 
-        .product-info {
-          text-align: left;
-          margin-top: $spacing-unit;
+  .product-category {
+    font-size: map-get($font-sizes, "sm");
+    font-weight: map-get($font-weights, "normal");
+    color: var(--secondary);
+    margin-bottom: map-get($spacing, "xs");
+  }
 
-          h3 {
-            font-size: px-to-rem(18px);
-            margin: 0 0 $spacing-unit / 2;
-            color: $secondary-color;
-          }
+  .product-description {
+    font-size: map-get($font-sizes, "md");
+    color: var(--text);
+    margin-bottom: map-get($spacing, "sm");
+  }
 
-          p {
-            font-size: px-to-rem(14px);
-            color: darken($secondary-color, 20%);
-            margin: 0 0 $spacing-unit;
-          }
+  .product-price {
+    font-size: map-get($font-sizes, "lg");
+    font-weight: map-get($font-weights, "extra-bold");
+    color: var(--primary);
+    margin-bottom: map-get($spacing, "sm");
+  }
 
-          .product-price {
-            font-weight: bold;
-            color: darken($secondary-color, 10%);
-          }
-        }
-      }
+  .product-rating {
+    font-size: map-get($font-sizes, "sm");
+    color: var(--text);
+    font-weight: map-get($font-weights, "normal");
+  }
+
+  button {
+    background-color: var(--primary);
+    color: var(--secondary);
+    padding: map-get($spacing, "sm") map-get($spacing, "lg");
+    border: none;
+    border-radius: 4px;
+    font-size: map-get($font-sizes, "md");
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: var(--hover);
     }
   }
 }

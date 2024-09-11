@@ -1,32 +1,36 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
-interface Product {
-  name: string;
-  description: string;
-  price: number;
-}
+import { ProductService } from '../../services/product.service';
+import { Product } from '../../model/product.model';
 
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.scss'],
 })
-export class ProductListComponent {
-  products: Product[] = [
-    {
-      name: 'Product 1',
-      description: 'Description for Product 1',
-      price: 29.99,
-    },
-    {
-      name: 'Product 2',
-      description: 'Description for Product 2',
-      price: 49.99,
-    },
-    {
-      name: 'Product 3',
-      description: 'Description for Product 3',
-      price: 19.99,
-    },
-  ];
+export class ProductListComponent implements OnInit {
+  products: Product[] = [];
+  isLoading = true; 
+
+  constructor(private productService: ProductService) {}
+
+  ngOnInit(): void {
+    this.productService.getProducts().subscribe({
+      next: (data: Product[]) => {
+        this.products = data;
+        this.isLoading = false; 
+      },
+      error: (error) => {
+        console.error('Error fetching products:', error);
+        this.isLoading = false; 
+      },
+    });
+  }
+
+  truncateText(text: string, wordLimit: number): string {
+    const words = text.split(' ');
+    return words.length > wordLimit
+      ? words.slice(0, wordLimit).join(' ') + '...'
+      : text;
+  }
 }

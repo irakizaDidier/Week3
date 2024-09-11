@@ -4,10 +4,10 @@
   justify-content: center;
 }
 
-@mixin button-styles($bg-color: $primary-color, $text-color: white) {
+@mixin button-styles($bg-color: var(--primary), $text-color: white) {
   background-color: $bg-color;
   color: $text-color;
-  padding: $spacing-unit $spacing-unit * 2;
+  padding: map-get($spacing, "sm") map-get($spacing, "md");
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -18,6 +18,23 @@
 }
 
 @mixin theme($theme) {
-  background-color: map-get($theme, background-color);
-  color: map-get($theme, text-color);
+  @include theme-colors($theme);
+
+  background-color: var(--background);
+  color: var(--text);
+  border: 1px solid var(--border);
+
+  a {
+    color: var(--text);
+
+    &:hover {
+      color: var(--hover);
+    }
+  }
+}
+
+@mixin theme-colors($theme) {
+  @each $key, $value in $theme {
+    --#{$key}: #{$value};
+  }
 }

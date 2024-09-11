@@ -1,16 +1,24 @@
 <div class="product-list-container">
-  <h2 class="product-list-title">Our Products</h2>
-  <ul class="product-list">
-    <li *ngFor="let product of products" class="product-item">
-      <div class="product-details">
-        <img src="https://via.placeholder.com/150" alt="{{ product }}"
+  <section *ngIf="!isLoading; else loading">
+    <div class="product-list" *ngFor="let product of products">
+      <div class="product-card">
+        <img [src]="product.image" alt="{{ product.name }}"
           class="product-image" />
-        <div class="product-info">
-          <h3>{{ product.name }}</h3>
-          <p>{{ product.description }}</p>
-          <span class="product-price">{{ product.price }}</span>
+        <h3>{{ product.name }}</h3>
+        <p class="product-category">Category: {{ product.category }}</p>
+        <p class="product-description">{{ truncateText(product.description, 10)
+          }}</p>
+        <p class="product-price">Price: {{ product.price | currency }}</p>
+        <div class="product-rating">
+          Rating: {{ product.rating.rate }} ★
         </div>
       </div>
-    </li>
-  </ul>
+    </div>
+  </section>
+
+  <ng-template #loading>
+    <div class="wave-loader">
+      <div></div><div></div><div></div><div></div><div></div>
+    </div>
+  </ng-template>
 </div>
