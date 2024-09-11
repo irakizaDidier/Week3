@@ -1,0 +1,20 @@
+@import "../../../styles.scss";
+
+.header {
+  background-color: $primary-color;
+  padding: $spacing-unit;
+
+  .nav-list {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 30%;
+    cursor: pointer;
+  }
+
+  .nav-item {
+    color: white;
+    &:hover {
+      color: $secondary-color;
+    }
+  }
+}

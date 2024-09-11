@@ -1,0 +1,19 @@
+body {
+  font-family: $font-family;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  height: 100%;
+}
+
+.container {
+  @include flex-center(column);
+  width: 100%;
+
+  @media (min-width: 768px) {
+    .main-content {
+      max-width: 1200px;
+      margin: auto;
+    }
+  }
+}

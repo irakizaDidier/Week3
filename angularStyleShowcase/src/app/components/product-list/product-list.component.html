@@ -1,0 +1,16 @@
+<div class="product-list-container">
+  <h2 class="product-list-title">Our Products</h2>
+  <ul class="product-list">
+    <li *ngFor="let product of products" class="product-item">
+      <div class="product-details">
+        <img src="https://via.placeholder.com/150" alt="{{ product }}"
+          class="product-image" />
+        <div class="product-info">
+          <h3>{{ product.name }}</h3>
+          <p>{{ product.description }}</p>
+          <span class="product-price">{{ product.price }}</span>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>
