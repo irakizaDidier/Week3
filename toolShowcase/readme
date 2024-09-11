@@ -1,5 +1,9 @@
 # Build Tool Showcase
 
+# Hosted Link
+
+https://week3-xi.vercel.app/
+
 ## Project Description
 
 Build Tool Showcase is a simple web application designed to demonstrate the use of various build tools and package managers in a web development environment. It displays a list of popular build tools, utilizes modern JavaScript features (ES6+), and implements best practices for web development, including dependency management, build configuration, and optimization.
