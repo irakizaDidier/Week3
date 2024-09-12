@@ -5,9 +5,6 @@ import { ProductListComponent } from './product-list.component';
 
 @NgModule({
   declarations: [ProductListComponent],
-  imports: [
-    CommonModule, // Add CommonModule to use directives like *ngFor
-    ProductsRoutingModule,
-  ],
+  imports: [CommonModule, ProductsRoutingModule],
 })
 export class ProductsModule {}

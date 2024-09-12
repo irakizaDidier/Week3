@@ -4,5 +4,5 @@
   @extend %text-center !optional;
   background-color: var(--footer);
   color: var(--text);
-  padding: px-to-rem(map-get($spacing, "lg"));
+  padding: px-to-rem(map-get($spacing, "md"));
 }

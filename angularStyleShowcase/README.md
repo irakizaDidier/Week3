@@ -4,6 +4,10 @@
 
 https://week3-angular-style-showcase.vercel.app/home
 
+# Test
+
+npm run test
+
 ## Project Description
 
 This Angular application demonstrates advanced SCSS features, a component-based architecture, and responsive design techniques. It includes a theme system with light and dark modes, custom SCSS functions, mixins, and a custom Angular directive for interactive styling.
