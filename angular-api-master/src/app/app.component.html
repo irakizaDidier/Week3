@@ -1,11 +1,8 @@
 <div class="min-h-screen bg-gray-100">
-  <!-- Navbar -->
   <nav class="bg-blue-600 p-4 text-white">
     <div class="container mx-auto flex justify-between">
       <a href="/" class="text-lg font-semibold">Angular API Master</a>
       <ul class="flex space-x-4">
-        <li><a routerLink="/" routerLinkActive="font-bold"
-            class="hover:text-gray-300">Home</a></li>
         <li><a routerLink="/posts" routerLinkActive="font-bold"
             class="hover:text-gray-300">Posts</a></li>
         <li><a routerLink="/posts/create" routerLinkActive="font-bold"
@@ -14,7 +11,6 @@
     </div>
   </nav>
 
-  <!-- Main Content -->
   <div class="container mx-auto p-6">
     <router-outlet></router-outlet>
   </div>

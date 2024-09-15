@@ -1,1 +1,18 @@
-<p>post-edit works!</p>
+<div class="modal">
+  <div class="modal-content">
+    <span class="close" (click)="close()">&times;</span>
+    <h2>Edit Post</h2>
+    <form (ngSubmit)="save()">
+      <label>
+        Title:
+        <input [(ngModel)]="post.title" name="title" required />
+      </label>
+      <label>
+        Body:
+        <textarea [(ngModel)]="post.body" name="body" required></textarea>
+      </label>
+      <button type="submit">Save</button>
+      <button type="button" (click)="close()">Cancel</button>
+    </form>
+  </div>
+</div>

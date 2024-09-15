@@ -5,10 +5,9 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { PostEditComponent } from './components/post-edit/post-edit.component';
 
 @NgModule({
-  declarations: [AppComponent, PostEditComponent],
+  declarations: [AppComponent],
   imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
   providers: [],
   bootstrap: [AppComponent],

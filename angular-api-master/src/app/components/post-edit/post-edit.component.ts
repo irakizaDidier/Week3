@@ -1,37 +1,33 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { ApiClientService } from '../../services/api-client.service';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-post-edit',
   templateUrl: './post-edit.component.html',
+  styleUrls: ['./post-edit.component.css'],
+  standalone: true,
+  imports: [CommonModule, FormsModule],
 })
-export class PostEditComponent implements OnInit {
-  post = { title: '', body: '', userId: 1 };
-  successMessage: string = '';
+export class PostEditComponent {
+  @Input() post: any = {};
+  @Output() postUpdated = new EventEmitter<void>();
+  @Output() modalClosed = new EventEmitter<void>();
 
-  constructor(
-    private route: ActivatedRoute,
-    private apiClient: ApiClientService
-  ) {}
+  constructor(private apiClient: ApiClientService) {}
 
-  ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-    if (id) {
-      this.apiClient.getPostById(+id).subscribe({
-        next: (data) => (this.post = data),
-        error: (err) => window.alert(err),
-      });
-    }
+  save(): void {
+    this.apiClient.updatePost(this.post.id, this.post).subscribe({
+      next: () => {
+        this.postUpdated.emit(); 
+        this.close();
+      },
+      error: (err) => console.error('Error updating post', err),
+    });
   }
 
-  updatePost(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-    if (id) {
-      this.apiClient.updatePost(+id, this.post).subscribe({
-        next: () => (this.successMessage = 'Post updated successfully!'),
-        error: (err) => window.alert(err),
-      });
-    }
+  close(): void {
+    this.modalClosed.emit();
   }
 }
