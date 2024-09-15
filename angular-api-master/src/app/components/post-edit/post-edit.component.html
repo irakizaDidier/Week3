@@ -1,18 +1,28 @@
 <div class="modal">
   <div class="modal-content">
     <span class="close" (click)="close()">&times;</span>
-    <h2>Edit Post</h2>
-    <form (ngSubmit)="save()">
-      <label>
-        Title:
-        <input [(ngModel)]="post.title" name="title" required />
-      </label>
-      <label>
-        Body:
-        <textarea [(ngModel)]="post.body" name="body" required></textarea>
-      </label>
-      <button type="submit">Save</button>
-      <button type="button" (click)="close()">Cancel</button>
-    </form>
+    <div class="container mx-auto p-4">
+      <h1 class="text-3xl font-bold mb-4">Edit Post</h1>
+      <div>
+        <label class="block mb-2">Title</label>
+        <input [(ngModel)]="editedPost.title"
+          class="border border-gray-300 p-2 w-full mb-4 rounded"
+          placeholder="Enter title">
+      </div>
+      <div>
+        <label class="block mb-2">Body</label>
+        <textarea [(ngModel)]="editedPost.body"
+          class="border border-gray-300 p-2 w-full mb-4 rounded"
+          placeholder="Enter body"></textarea>
+      </div>
+      <div class="flex justify-end">
+        <button (click)="save()"
+          class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded">Save</button>
+        <button (click)="close()"
+          class="bg-gray-500 hover:bg-gray-700 text-white py-2 px-4 ml-2 rounded">Cancel</button>
+      </div>
+      <div *ngIf="successMessage" class="text-green-500 mt-4">{{ successMessage
+        }}</div>
+    </div>
   </div>
 </div>
