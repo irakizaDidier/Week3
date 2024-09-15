@@ -17,16 +17,21 @@ export class PostCreateComponent {
   isSubmitted: boolean = false;
 
   @Output() postCreated = new EventEmitter<any>();
-  postService: any;
 
   constructor(private apiClient: ApiClientService, private router: Router) {}
 
   createPost(): void {
+    this.isSubmitted = true;
+
+    if (!this.post.title || !this.post.body) {
+      return;
+    }
+
     this.apiClient.createPost(this.post).subscribe({
       next: (createdPost) => {
-        this.postService.setNewPost(createdPost);
         this.successMessage = 'Post created successfully!';
-        this.router.navigate(['/posts']); 
+        this.postCreated.emit(createdPost);
+        this.router.navigate(['/']);
       },
       error: (err) => window.alert(err),
     });
