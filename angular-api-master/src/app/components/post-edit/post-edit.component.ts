@@ -17,36 +17,32 @@ import { FormsModule } from '@angular/forms';
   imports: [CommonModule, FormsModule],
 })
 export class PostEditComponent implements OnChanges {
-  @Input() post: any = {}; // Input post object
+  @Input() post: any = {};
   @Output() postUpdated = new EventEmitter<void>();
   @Output() modalClosed = new EventEmitter<void>();
 
-  editedPost: any = {}; // Temporary object for form data
-  successMessage: string = ''; // Message after successful save
+  editedPost: any = {};
+  successMessage: string = '';
 
   constructor(private apiClient: ApiClientService) {}
 
   ngOnChanges(): void {
-    // Make a copy of the input post to avoid direct modification
     this.editedPost = { ...this.post };
   }
 
   save(): void {
-    // Call API to update the post using the editedPost data
     this.apiClient.updatePost(this.editedPost.id, this.editedPost).subscribe({
       next: () => {
-        // Update the original post with editedPost values
         Object.assign(this.post, this.editedPost);
         this.successMessage = 'Post updated successfully!';
-        this.postUpdated.emit(); // Emit event to notify parent component
-        setTimeout(() => (this.successMessage = ''), 3000); // Clear message after 3 seconds
+        this.postUpdated.emit();
+        setTimeout(() => (this.successMessage = ''), 3000);
       },
       error: (err) => console.error('Error updating post', err),
     });
   }
 
   close(): void {
-    // Emit modalClosed event to close the modal without saving
     this.modalClosed.emit();
   }
 }

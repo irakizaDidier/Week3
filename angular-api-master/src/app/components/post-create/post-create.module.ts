@@ -7,7 +7,12 @@ import { FormsModule } from '@angular/forms';
 const routes: Routes = [{ path: '', component: PostCreateComponent }];
 
 @NgModule({
-  declarations: [PostCreateComponent],
-  imports: [CommonModule, RouterModule.forChild(routes), FormsModule],
+  declarations: [],
+  imports: [
+    CommonModule,
+    RouterModule.forChild(routes),
+    FormsModule,
+    PostCreateComponent,
+  ],
 })
 export class PostCreateModule {}

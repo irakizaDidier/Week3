@@ -35,6 +35,10 @@ export class PostListComponent implements OnInit {
     });
   }
 
+  onPostCreated(newPost: any): void {
+    this.posts.unshift(newPost);
+  }
+
   onPageChange(page: number): void {
     this.currentPage = page;
     this.getPosts(page);
