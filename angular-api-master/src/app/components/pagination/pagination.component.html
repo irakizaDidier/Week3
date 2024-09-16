@@ -1,11 +1,23 @@
 <div class="flex justify-center space-x-2 mt-4">
-  <button (click)="onPageChange(currentPage - 1)" [disabled]="currentPage === 1"
+  <button
+    (click)="onPageChange(currentPage - 1)"
+    [disabled]="currentPage === 1"
     class="bg-gray-300 p-2 rounded">
     Previous
   </button>
-  <span>{{ currentPage }} / {{ totalPages }}</span>
-  <button (click)="onPageChange(currentPage + 1)"
-    [disabled]="currentPage === totalPages" class="bg-gray-300 p-2 rounded">
+
+  <button
+    *ngFor="let page of pages"
+    (click)="onPageChange(page)"
+    [class.bg-blue-500]="page === currentPage"
+    class="bg-gray-300 p-2 rounded">
+    {{ page }}
+  </button>
+
+  <button
+    (click)="onPageChange(currentPage + 1)"
+    [disabled]="currentPage === totalPages"
+    class="bg-gray-300 p-2 rounded">
     Next
   </button>
 </div>
