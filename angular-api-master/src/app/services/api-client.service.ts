@@ -56,4 +56,9 @@ export class ApiClientService {
     window.alert(errorMessage);
     return throwError(errorMessage);
   }
+  getCommentsByPostId(postId: number): Observable<any> {
+    return this.http
+      .get(`${this.apiUrl}/posts/${postId}/comments`)
+      .pipe(retry(2), catchError(this.handleError));
+  }
 }

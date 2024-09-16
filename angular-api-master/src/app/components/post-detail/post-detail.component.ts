@@ -9,6 +9,7 @@ import { ApiClientService } from '../../services/api-client.service';
 })
 export class PostDetailComponent implements OnInit {
   post: any = {};
+  comments: any[] = [];
   error: string = '';
   isLoading = true;
   showUpdateModal = false;
@@ -27,6 +28,7 @@ export class PostDetailComponent implements OnInit {
         next: (data) => {
           this.post = data;
           this.isLoading = false;
+          this.loadComments(+id);
         },
         error: (err) => {
           this.error = err;
@@ -36,6 +38,17 @@ export class PostDetailComponent implements OnInit {
     }
   }
 
+  loadComments(postId: number): void {
+    this.apiClient.getCommentsByPostId(postId).subscribe({
+      next: (data) => {
+        this.comments = data;
+      },
+      error: (err) => {
+        this.error = err;
+      },
+    });
+  }
+
   openUpdateModal(): void {
     this.showUpdateModal = true;
   }
@@ -43,6 +56,7 @@ export class PostDetailComponent implements OnInit {
   closeUpdateModal(): void {
     this.showUpdateModal = false;
   }
+
   onPostUpdated(): void {
     this.showUpdateModal = false;
   }

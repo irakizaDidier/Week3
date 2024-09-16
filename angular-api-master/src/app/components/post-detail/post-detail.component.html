@@ -10,6 +10,18 @@
 
   <div *ngIf="error" class="text-red-500">{{ error }}</div>
 
+  <h2 class="text-xl font-bold mt-6 text-blue-600">Comments:</h2>
+  <div *ngIf="comments.length === 0 && !isLoading" class="text-gray-500">
+    No comments available.
+  </div>
+  <ul *ngIf="comments.length > 0">
+    <li *ngFor="let comment of comments" class="border-b py-2">
+      <h3 class="font-semibold">{{ comment.name }}</h3>
+      <p class="text-gray-600">{{ comment.body }}</p>
+      <p class="text-sm text-gray-400">by {{ comment.email }}</p>
+    </li>
+  </ul>
+
   <div *ngIf="!isLoading && !error" class="my-6">
     <button
       (click)="openUpdateModal()"
