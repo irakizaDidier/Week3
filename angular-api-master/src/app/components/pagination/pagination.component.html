@@ -1,8 +1,8 @@
-<div class="flex justify-center space-x-2 mt-4">
+<div class="flex flex-wrap justify-center space-x-2 mt-4">
   <button
     (click)="onPageChange(currentPage - 1)"
     [disabled]="currentPage === 1"
-    class="bg-gray-300 p-2 rounded">
+    class="bg-gray-300 p-2 rounded hover:bg-gray-400 disabled:opacity-50 transition-colors">
     Previous
   </button>
 
@@ -10,14 +10,15 @@
     *ngFor="let page of pages"
     (click)="onPageChange(page)"
     [class.bg-blue-500]="page === currentPage"
-    class="bg-gray-300 p-2 rounded">
+    [class.text-white]="page === currentPage"
+    class="bg-gray-300 p-2 rounded hover:bg-gray-400 transition-colors">
     {{ page }}
   </button>
 
   <button
     (click)="onPageChange(currentPage + 1)"
     [disabled]="currentPage === totalPages"
-    class="bg-gray-300 p-2 rounded">
+    class="bg-gray-300 p-2 rounded hover:bg-gray-400 disabled:opacity-50 transition-colors">
     Next
   </button>
 </div>

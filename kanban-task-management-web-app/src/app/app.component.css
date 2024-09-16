@@ -1,0 +1,17 @@
+.app-container {
+  display: flex;
+}
+
+.main-layout {
+  margin-left: 250px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+@media screen and (max-width: 768px) {
+  .main-layout {
+    margin-top: 80px;
+    padding: 15px;
+  }
+}

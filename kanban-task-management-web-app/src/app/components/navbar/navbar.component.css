@@ -1,0 +1,53 @@
+.navbar {
+  @apply flex justify-between items-center p-5 bg-white border-b border-gray-200 w-full fixed top-0 left-0 z-[999];
+}
+
+.add-task {
+  @apply bg-[#e3d9ff] border-none text-[#6c63ff] px-5 py-2.5 rounded-md cursor-pointer;
+}
+
+.sidebar-toggle {
+  @apply hidden bg-transparent border-none text-2xl cursor-pointer;
+}
+
+@media screen and (max-width: 768px) {
+  .sidebar-toggle {
+    @apply inline-block;
+  }
+
+  h1 {
+    @apply ml-2 text-[1.2em] cursor-pointer;
+  }
+
+  .add-task {
+    @apply text-base;
+  }
+}
+
+.sidebar {
+  @apply hidden bg-white w-full absolute top-[60px] left-0 shadow-lg z-50;
+  display: none;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-in-out;
+}
+
+.sidebar.active {
+  display: block;
+  max-height: 300px;
+}
+
+.sidebar ul {
+  @apply list-none p-5;
+}
+
+.sidebar ul li {
+  @apply p-3 text-lg text-gray-700 hover:bg-gray-100 cursor-pointer;
+}
+
+@media screen and (min-width: 768px) {
+  .sidebar {
+    display: none !important;
+    max-height: 0 !important;
+  }
+}

@@ -1,0 +1,15 @@
+.main-content {
+  @apply bg-[#F4F7FD] h-screen p-5;
+}
+
+.empty-board {
+  @apply flex flex-col items-center justify-center h-full;
+}
+
+.add-column {
+  @apply bg-[#6c63ff] text-white border-none rounded-md px-4 py-2.5 cursor-pointer;
+}
+
+.add-column:hover {
+  @apply bg-[#5a52e8];
+}

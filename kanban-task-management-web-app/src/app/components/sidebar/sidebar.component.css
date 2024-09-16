@@ -1,0 +1,72 @@
+.sidebar {
+  @apply border-r border-gray-200 fixed w-[250px] h-screen bg-[#fff] flex flex-col p-5 top-0 left-0 z-[1000] transition-transform duration-300 ease-in-out;
+}
+
+.logo h1 {
+  @apply text-[#6c63ff] text-[1.5em];
+}
+
+.board-list {
+  @apply list-none p-0 my-5;
+}
+
+.board-list li {
+  @apply mb-2.5;
+}
+
+.board-list li a {
+  @apply text-[#333] no-underline font-bold;
+}
+
+.theme-switcher {
+  @apply mt-auto flex items-center justify-between px-12;
+}
+
+.switch {
+  @apply relative inline-block w-[34px] h-[20px];
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  @apply absolute cursor-pointer top-0 left-0 right-0 bottom-0 bg-[#ccc] transition-all  rounded-full;
+  transition: 0.4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 12px;
+  width: 12px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  @apply bg-[#6c63ff];
+}
+
+input:checked + .slider:before {
+  @apply translate-x-[14px];
+}
+
+.hide-sidebar {
+  @apply bg-transparent border-none text-[#6c63ff] cursor-pointer mt-5 font-bold;
+}
+
+@media screen and (max-width: 768px) {
+  .sidebar {
+    @apply translate-x-[-100%];
+  }
+
+  .sidebar.active {
+    @apply translate-x-0;
+  }
+}

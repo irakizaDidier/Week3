@@ -1,0 +1,33 @@
+@media (max-width: 640px) {
+  .pagination-button {
+    padding: 1rem;
+    font-size: 0.875rem;
+  }
+}
+
+@media (min-width: 641px) {
+  .pagination-button {
+    padding: 1.5rem;
+    font-size: 1rem;
+  }
+}
+
+.bg-blue-500 {
+  background-color: #3b82f6;
+}
+
+.text-white {
+  color: #ffffff;
+}
+
+.hover\:bg-gray-400:hover {
+  background-color: #d1d5db;
+}
+
+.transition-colors {
+  transition: background-color 0.3s ease;
+}
+
+.disabled\:opacity-50:disabled {
+  opacity: 0.5;
+}
