@@ -11,7 +11,8 @@
   <div class="theme-switcher">
     <img src="assets/images/icon-light-theme.svg" alt="light" />
     <label class="switch">
-      <input type="checkbox">
+      <input type="checkbox" [checked]="darkMode$ | async"
+        (click)="toggleTheme()">
       <span class="slider"></span>
     </label>
     <img src="assets/images/icon-dark-theme.svg" alt='dark' />
