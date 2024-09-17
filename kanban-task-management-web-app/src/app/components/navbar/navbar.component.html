@@ -1,5 +1,32 @@
 <nav class="navbar">
-  <button class="sidebar-toggle" (click)="toggleSidebar()">☰</button>
-  <h1>Platform Launch</h1>
+  <div class="navbar-header" (click)="toggleSidebar()">
+    <h1>Platform Launch <span class="dropdown-icon">{{ isSidebarActive ? '▲' :
+        '▼' }}</span></h1>
+  </div>
   <button class="add-task">+ Add New Task</button>
 </nav>
+
+<div class="sidebar" *ngIf="isSidebarActive" (click)="preventClose($event)">
+  <div class="sidebar-content">
+    <div class="sidebar-header">
+      <h3>All Boards (3)</h3>
+    </div>
+    <ul class="board-list">
+      <li class="board-item active">Platform Launch</li>
+      <li class="board-item">Marketing Plan</li>
+      <li class="board-item">Roadmap</li>
+      <li class="board-item create-new">+ Create New Board</li>
+    </ul>
+
+    <div class="theme-switcher">
+      <img src="assets/images/icon-light-theme.svg" alt="light" />
+      <label class="switch">
+        <input type="checkbox" [checked]="darkMode$ | async"
+          (click)="toggleTheme()">
+        <span class="slider"></span>
+      </label>
+      <img src="assets/images/icon-dark-theme.svg" alt='dark' />
+    </div>
+
+  </div>
+</div>

@@ -28,7 +28,7 @@ export class SidebarComponent implements OnInit {
       } else {
         this.renderer.removeClass(document.body, 'dark-mode');
       }
-      this.cdr.markForCheck(); 
+      this.cdr.markForCheck();
     });
   }
 

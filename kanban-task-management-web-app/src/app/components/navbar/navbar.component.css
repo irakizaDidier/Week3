@@ -6,48 +6,87 @@
   @apply bg-[#e3d9ff] border-none text-[#6c63ff] px-5 py-2.5 rounded-md cursor-pointer;
 }
 
-.sidebar-toggle {
-  @apply hidden bg-transparent border-none text-2xl cursor-pointer;
+.sidebar {
+  @apply fixed top-16 right-4 bg-white shadow-lg rounded-lg w-72 z-50;
 }
 
-@media screen and (max-width: 768px) {
-  .sidebar-toggle {
-    @apply inline-block;
-  }
+.sidebar-content {
+  @apply p-4 flex flex-col items-start;
+}
 
-  h1 {
-    @apply ml-2 text-[1.2em] cursor-pointer;
-  }
+.sidebar-header h3 {
+  @apply text-gray-500 text-sm uppercase font-bold mb-4;
+}
 
-  .add-task {
-    @apply text-base;
-  }
+.board-list {
+  @apply list-none w-full;
+}
+
+.board-item {
+  @apply mb-3 py-2 px-4 rounded-lg flex items-center bg-[#f0f0ff] text-gray-700;
+}
+
+.board-item.active {
+  @apply bg-[#635fc7] text-white;
+}
+
+.create-new {
+  @apply text-[#635fc7] cursor-pointer;
+}
+
+.navbar-header {
+  @apply flex items-center cursor-pointer;
+}
+
+.dropdown-icon {
+  @apply ml-2 text-lg text-gray-500;
 }
 
 .sidebar {
-  @apply hidden bg-white w-full absolute top-[60px] left-0 shadow-lg z-50;
-  display: none;
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.3s ease-in-out;
+  @apply fixed top-16 right-4 bg-white shadow-lg rounded-lg w-72 z-50;
 }
 
-.sidebar.active {
-  display: block;
-  max-height: 300px;
+.theme-switcher {
+  @apply mt-auto flex items-center justify-between px-12;
 }
 
-.sidebar ul {
-  @apply list-none p-5;
+.switch {
+  @apply relative inline-block w-[34px] h-[20px];
 }
 
-.sidebar ul li {
-  @apply p-3 text-lg text-gray-700 hover:bg-gray-100 cursor-pointer;
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
 }
 
-@media screen and (min-width: 768px) {
+.slider {
+  @apply absolute cursor-pointer top-0 left-0 right-0 bottom-0 bg-[#ccc] transition-all  rounded-full;
+  transition: 0.4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 12px;
+  width: 12px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  @apply bg-[#6c63ff];
+}
+
+input:checked + .slider:before {
+  @apply translate-x-[14px];
+}
+
+@media (min-width: 768px) {
   .sidebar {
-    display: none !important;
-    max-height: 0 !important;
+    @apply hidden;
   }
 }

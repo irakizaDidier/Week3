@@ -1,25 +1,61 @@
-import { Component } from '@angular/core';
-
+import { Component, HostListener, Renderer2 } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { selectDarkMode } from '../../store/selectors/theme.selectors';
+import * as ThemeActions from '../../store/actions/theme.actions';
+import { ChangeDetectorRef, OnInit } from '@angular/core';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css'],
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit {
   isSidebarActive = false;
+  darkMode$: Observable<boolean>;
+
+  constructor(
+    private store: Store,
+    private cdr: ChangeDetectorRef,
+    private renderer: Renderer2
+  ) {
+    this.darkMode$ = this.store.select(selectDarkMode);
+  }
+
+  ngOnInit() {
+    this.darkMode$.subscribe((isDarkMode: boolean) => {
+      if (isDarkMode) {
+        this.renderer.addClass(document.body, 'dark-mode');
+      } else {
+        this.renderer.removeClass(document.body, 'dark-mode');
+      }
+      this.cdr.markForCheck();
+    });
+  }
 
   toggleSidebar() {
     this.isSidebarActive = !this.isSidebarActive;
-    const sidebar = document.querySelector('.sidebar');
+  }
 
-    if (sidebar) {
-      if (this.isSidebarActive) {
-        sidebar.classList.add('active');
-      } else {
-        sidebar.classList.remove('active');
-      }
-    } else {
-      console.error('Sidebar element not found');
+  preventClose(event: Event) {
+    event.stopPropagation();
+  }
+
+  @HostListener('document:click', ['$event'])
+  onClick(event: MouseEvent) {
+    const sidebar = document.querySelector('.sidebar');
+    const navbarHeader = document.querySelector('.navbar-header');
+    if (
+      this.isSidebarActive &&
+      sidebar &&
+      navbarHeader &&
+      !sidebar.contains(event.target as Node) &&
+      !navbarHeader.contains(event.target as Node)
+    ) {
+      this.isSidebarActive = false;
     }
+  }
+
+  toggleTheme() {
+    this.store.dispatch(ThemeActions.toggleTheme());
   }
 }

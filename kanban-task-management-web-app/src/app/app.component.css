@@ -3,14 +3,24 @@
 }
 
 .main-layout {
+  @apply flex flex-col;
   margin-left: 250px;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
+  flex: 4;
+  /* @apply gap-16; */
 }
 
 @media screen and (max-width: 768px) {
+  .app-container {
+    flex-direction: column;
+  }
+
+  app-sidebar {
+    display: none;
+  }
+
   .main-layout {
+    margin-left: 0;
+    width: 100%;
     margin-top: 80px;
     padding: 15px;
   }
