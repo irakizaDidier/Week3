@@ -5,7 +5,7 @@
 .main-layout {
   @apply flex flex-col;
   margin-left: 250px;
-  flex: 4;
+  flex: 1;
   /* @apply gap-16; */
 }
 

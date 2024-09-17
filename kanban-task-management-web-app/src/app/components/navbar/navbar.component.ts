@@ -12,6 +12,7 @@ import { ChangeDetectorRef, OnInit } from '@angular/core';
 export class NavbarComponent implements OnInit {
   isSidebarActive = false;
   darkMode$: Observable<boolean>;
+  isMobileView = false;
 
   constructor(
     private store: Store,
@@ -53,6 +54,14 @@ export class NavbarComponent implements OnInit {
     ) {
       this.isSidebarActive = false;
     }
+  }
+  @HostListener('window:resize', ['$event'])
+  onResize() {
+    this.checkScreenWidth();
+  }
+
+  checkScreenWidth() {
+    this.isMobileView = window.innerWidth <= 768;
   }
 
   toggleTheme() {

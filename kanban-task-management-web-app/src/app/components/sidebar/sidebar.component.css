@@ -1,21 +1,24 @@
 .sidebar {
-  @apply border-r border-gray-200 fixed w-[250px] h-screen bg-[#fff] flex flex-col p-5 top-0 left-0 z-[1000] transition-transform duration-300 ease-in-out;
+  @apply border-r border-gray-200 fixed w-[250px] h-screen bg-[#fff] flex flex-col  top-0 left-0 z-[1000] transition-transform duration-300 ease-in-out;
 }
-
-.logo h1 {
-  @apply text-[#6c63ff] text-[1.5em];
+.logo {
+  @apply p-5;
 }
 
 .board-list {
-  @apply list-none p-0 my-5;
+  @apply list-none p-0 my-5 py-5;
 }
-
+.items-link {
+  @apply hover:rounded-r-full hover:bg-[#635FC7] py-4 px-5 text-[#828FA3] no-underline font-bold  hover:text-white;
+}
+.all-boards {
+  @apply text-[#828FA3] font-bold;
+}
 .board-list li {
   @apply mb-2.5;
 }
-
-.board-list li a {
-  @apply text-[#333] no-underline font-bold;
+.items-link-create {
+  @apply text-[#635FC7] hover:rounded-r-full hover:bg-[#635FC7] py-4 px-5 no-underline font-bold hover:text-white;
 }
 
 .theme-switcher {
@@ -58,7 +61,7 @@ input:checked + .slider:before {
 }
 
 .hide-sidebar {
-  @apply bg-transparent border-none text-[#6c63ff] cursor-pointer mt-5 font-bold;
+  @apply bg-transparent border-none text-[#828FA3] cursor-pointer mt-5 font-bold;
 }
 
 @media screen and (max-width: 768px) {

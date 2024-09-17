@@ -1,7 +1,57 @@
 <div class="main-content">
-  <h1>hello didier habimana irakiza</h1>
-  <div class="empty-board">
-    <p>This board is empty. Create a new column to get started.</p>
-    <button class="add-column">+ Add New Column</button>
+  <div *ngIf="loading$ | async" class="loading">
+    <p>Loading tasks...</p>
   </div>
+
+  <div *ngIf="error$ | async as error" class="error">
+    <p>Error: {{ error }}</p>
+  </div>
+
+  <ng-container *ngIf="tasks$ | async as tasks">
+    <div *ngIf="tasks.length === 0" class="empty-board">
+      <p>This board is empty. Create a new column to get started.</p>
+      <button class="add-column">+ Add New Column</button>
+    </div>
+
+    <div *ngIf="tasks.length > 0" class="tasks-board">
+      <div class="column">
+        <h3>Todo ({{ getTaskCountByStatus('Todo') }})</h3>
+        <ul>
+          <ng-container *ngFor="let task of getTasksByStatus('Todo')">
+            <li [ngClass]="task.status">
+              <h4>{{ task.title }}</h4>
+              <p>{{ getCompletedSubtaskCount(task) }} of {{ task.subtasks.length
+                }} subtasks</p>
+            </li>
+          </ng-container>
+        </ul>
+      </div>
+
+      <div class="column">
+        <h3>Doing ({{ getTaskCountByStatus('Doing') }})</h3>
+        <ul>
+          <ng-container *ngFor="let task of getTasksByStatus('Doing')">
+            <li [ngClass]="task.status">
+              <h4>{{ task.title }}</h4>
+              <p>{{ getCompletedSubtaskCount(task) }} of {{ task.subtasks.length
+                }} subtasks</p>
+            </li>
+          </ng-container>
+        </ul>
+      </div>
+
+      <div class="column">
+        <h3>Done ({{ getTaskCountByStatus('Done') }})</h3>
+        <ul>
+          <ng-container *ngFor="let task of getTasksByStatus('Done')">
+            <li [ngClass]="task.status">
+              <h4>{{ task.title }}</h4>
+              <p>{{ getCompletedSubtaskCount(task) }} of {{ task.subtasks.length
+                }} subtasks</p>
+            </li>
+          </ng-container>
+        </ul>
+      </div>
+    </div>
+  </ng-container>
 </div>

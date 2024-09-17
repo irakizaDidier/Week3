@@ -1,12 +1,38 @@
 <div class="sidebar">
   <div class="logo">
-    <h1>kanban</h1>
+    <img
+      [src]="(darkMode$ | async) ? 'assets/images/logo-light.svg' : 'assets/images/logo-dark.svg'"
+      alt="Logo" />
   </div>
   <ul class="board-list">
-    <li><a href="#">Platform Launch</a></li>
-    <li><a href="#">Marketing Plan</a></li>
-    <li><a href="#">Roadmap</a></li>
-    <li><a href="#">+ Create New Board</a></li>
+    <li class="pb-4 px-5 all-boards">ALL BOARDS (3)</li>
+    <li>
+      <a (click)="selectBoard('Platform Launch')"
+        class="flex gap-6 items-center items-link">
+        <img src="assets/images/icon-board.svg" alt="board" class="h-4 w-4" />
+        Platform Launch
+      </a>
+    </li>
+    <li>
+      <a (click)="selectBoard('Marketing Plan')"
+        class="flex gap-6 items-center items-link">
+        <img src="assets/images/icon-board.svg" alt="board" class="h-4 w-4" />
+        Marketing Plan
+      </a>
+    </li>
+    <li>
+      <a (click)="selectBoard('Roadmap')"
+        class="flex gap-6 items-center items-link">
+        <img src="assets/images/icon-board.svg" alt="board" class="h-4 w-4" />
+        Roadmap
+      </a>
+    </li>
+    <li>
+      <a routerLink="#" class="flex gap-6 items-center items-link-create">
+        <img src="assets/images/icon-board.svg" alt="board" class="h-4 w-4" /> +
+        Create New Board
+      </a>
+    </li>
   </ul>
   <div class="theme-switcher">
     <img src="assets/images/icon-light-theme.svg" alt="light" />
@@ -17,5 +43,10 @@
     </label>
     <img src="assets/images/icon-dark-theme.svg" alt='dark' />
   </div>
-  <button class="hide-sidebar">Hide Sidebar</button>
+  <button class="hide-sidebar flex items-center gap-6 justify-center">
+    <img src="assets/images/icon-hide-sidebar.svg" alt="hide-log" />
+    <span>
+      Hide Sidebar
+    </span>
+  </button>
 </div>

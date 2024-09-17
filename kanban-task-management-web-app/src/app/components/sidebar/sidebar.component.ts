@@ -1,4 +1,4 @@
-import { Component, Renderer2 } from '@angular/core';
+import { Component, EventEmitter, Output, Renderer2 } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { selectDarkMode } from '../../store/selectors/theme.selectors';
@@ -12,6 +12,7 @@ import { ChangeDetectorRef, OnInit } from '@angular/core';
 })
 export class SidebarComponent implements OnInit {
   darkMode$: Observable<boolean>;
+  @Output() boardSelected = new EventEmitter<string>();
 
   constructor(
     private store: Store,
@@ -34,5 +35,9 @@ export class SidebarComponent implements OnInit {
 
   toggleTheme() {
     this.store.dispatch(ThemeActions.toggleTheme());
+  }
+
+  selectBoard(boardName: string): void {
+    this.boardSelected.emit(boardName);
   }
 }

@@ -1,13 +1,13 @@
 .navbar {
-  @apply flex justify-between items-center p-5 bg-white border-b border-gray-200 w-full fixed top-0 left-0 z-[999];
+  @apply flex justify-between items-center p-5 bg-white border-b border-gray-200;
 }
 
 .add-task {
-  @apply bg-[#e3d9ff] border-none text-[#6c63ff] px-5 py-2.5 rounded-md cursor-pointer;
+  @apply bg-[#635FC7] border-none text-[#fff] px-5 py-2.5 rounded-md cursor-pointer;
 }
 
 .sidebar {
-  @apply fixed top-16 right-4 bg-white shadow-lg rounded-lg w-72 z-50;
+  @apply fixed top-[-300px] left-1/2 transform -translate-x-1/2 bg-white shadow-lg rounded-lg;
 }
 
 .sidebar-content {
@@ -36,6 +36,7 @@
 
 .navbar-header {
   @apply flex items-center cursor-pointer;
+  width: 70%;
 }
 
 .dropdown-icon {
@@ -89,4 +90,7 @@ input:checked + .slider:before {
   .sidebar {
     @apply hidden;
   }
+  /* .navbar {
+    @apply top-0 left-0;
+  } */
 }
