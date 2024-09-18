@@ -16,7 +16,11 @@
     <div class="tasks-board">
       <ng-container *ngFor="let column of getColumns()">
         <div class="column">
-          <h3>{{ column.name }} ({{ getTaskCountByStatus(column.name) }})</h3>
+          <div class="flex items-center mb-6">
+            <span class="status-dot"
+              [ngClass]="getColumnColorClass(column.name)"></span>
+            <h3>{{ column.name }} ({{ getTaskCountByStatus(column.name) }})</h3>
+          </div>
           <ul>
             <ng-container *ngFor="let task of getTasksByStatus(column.name)">
               <li [ngClass]="task.status" class="list">

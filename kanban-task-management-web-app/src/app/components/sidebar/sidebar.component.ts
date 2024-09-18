@@ -2,6 +2,7 @@ import {
   Component,
   EventEmitter,
   Output,
+  Input,
   Renderer2,
   OnInit,
 } from '@angular/core';
@@ -18,7 +19,11 @@ import { ChangeDetectorRef } from '@angular/core';
 })
 export class SidebarComponent implements OnInit {
   darkMode$: Observable<boolean>;
+
+  @Input() isSidebarHidden = false;
+
   @Output() boardSelected = new EventEmitter<string>();
+  @Output() sidebarToggled = new EventEmitter<boolean>();
 
   boards: string[] = ['Platform Launch', 'Marketing Plan', 'Roadmap'];
   selectedBoard: string = 'Platform Launch';
@@ -54,5 +59,10 @@ export class SidebarComponent implements OnInit {
 
   isBoardSelected(boardName: string): boolean {
     return this.selectedBoard === boardName;
+  }
+
+  toggleSidebar(): void {
+    this.isSidebarHidden = !this.isSidebarHidden;
+    this.sidebarToggled.emit(this.isSidebarHidden);
   }
 }

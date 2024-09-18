@@ -36,10 +36,18 @@ export class MainContentComponent implements OnChanges {
     this.boards$ = this.store.select(selectAllBoards);
     this.loading$ = this.store.select(selectTaskLoading);
     this.error$ = this.store.select(selectTaskError);
-    this.loadBoardData(this.selectedBoard);
+    this.boards$.subscribe((boards) => {
+      if (boards.length > 0) {
+        this.loadBoardData(this.selectedBoard);
+      }
+    });
   }
 
   loadBoardData(boardName: string): void {
+    if (!this.boards$) {
+      return;
+    }
+
     this.boards$.subscribe((boards) => {
       const selectedBoard = boards.find((board) => board.name === boardName);
 
@@ -67,5 +75,20 @@ export class MainContentComponent implements OnChanges {
 
   getCompletedSubtaskCount(task: Task): number {
     return task.subtasks.filter((subtask) => subtask.isCompleted).length;
+  }
+  getColumnColorClass(columnName: string): string {
+    switch (columnName.toLowerCase()) {
+      case 'todo':
+      case 'now':
+        return 'todo';
+      case 'doing':
+      case 'next':
+        return 'doing';
+      case 'done':
+      case 'later':
+        return 'done';
+      default:
+        return '';
+    }
   }
 }

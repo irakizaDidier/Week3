@@ -1,4 +1,4 @@
-<div class="sidebar">
+<div class="sidebar" [ngClass]="{ 'active': isSidebarHidden }">
   <div class="logo">
     <img
       [src]="(darkMode$ | async) ? 'assets/images/logo-light.svg' : 'assets/images/logo-dark.svg'"
@@ -25,7 +25,7 @@
     </li>
   </ul>
 
-  <div class="theme-switcher">
+  <div class="theme-switcher bg-[#F4F7FD] py-2 rounded-md mx-6">
     <img src="assets/images/icon-light-theme.svg" alt="light" />
     <label class="switch">
       <input type="checkbox" [checked]="darkMode$ | async"
@@ -35,8 +35,13 @@
     <img src="assets/images/icon-dark-theme.svg" alt="dark" />
   </div>
 
-  <button class="hide-sidebar flex items-center gap-6 justify-center">
+  <button class="hide-sidebar flex items-center gap-6 justify-center mb-10"
+    (click)="toggleSidebar()">
     <img src="assets/images/icon-hide-sidebar.svg" alt="hide-sidebar" />
     <span>Hide Sidebar</span>
   </button>
 </div>
+
+<button *ngIf="isSidebarHidden" class="show-sidebar" (click)="toggleSidebar()">
+  <img src="assets/images/icon-show-sidebar.svg" alt="show-sidebar" />
+</button>

@@ -15,7 +15,8 @@ export class NavbarComponent implements OnInit {
   darkMode$: Observable<boolean>;
   isMobileView = false;
 
-  @Input() selectedBoardTitle: string = 'Platform Launch'; 
+  @Input() selectedBoardTitle: string = 'Platform Launch';
+  @Input() isSidebarHidden: boolean = false;
 
   constructor(
     private store: Store,

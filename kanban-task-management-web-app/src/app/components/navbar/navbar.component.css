@@ -4,10 +4,39 @@
 
 .add-task {
   @apply bg-[#635FC7] border-none text-[#fff] px-5 py-2.5 rounded-md cursor-pointer;
+  display: flex;
+  align-items: center;
+}
+
+.add-task-mobile-icon {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .add-task-mobile-icon {
+    display: inline-block;
+    margin-left: 8px;
+  }
+
+  .add-task {
+    font-size: 0;
+  }
+
+  .add-task-mobile-icon {
+    font-size: 16px;
+  }
 }
 
 .sidebar {
-  @apply fixed top-[-300px] left-1/2 transform -translate-x-1/2 bg-white shadow-lg rounded-lg;
+  @apply fixed top-16 right-0 bg-white shadow-lg rounded-lg w-72 z-50 transition-transform ease-in-out duration-300;
+}
+
+.sidebar-active {
+  transform: translateX(0);
+}
+
+.sidebar-inactive {
+  transform: translateX(100%);
 }
 
 .sidebar-content {
@@ -90,7 +119,12 @@ input:checked + .slider:before {
   .sidebar {
     @apply hidden;
   }
-  /* .navbar {
-    @apply top-0 left-0;
-  } */
+}
+
+.logo.hidden {
+  display: none !important;
+}
+
+.logo {
+  display: block;
 }

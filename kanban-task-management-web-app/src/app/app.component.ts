@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class AppComponent implements OnInit {
   title = 'kanban-task-management-web-app';
   selectedBoard: string = 'Platform Launch';
+  isSidebarHidden = false;
 
   ngOnInit() {
     const storedBoard = localStorage.getItem('selectedBoard');
@@ -19,5 +20,9 @@ export class AppComponent implements OnInit {
   onBoardSelected(boardName: string) {
     this.selectedBoard = boardName;
     localStorage.setItem('selectedBoard', boardName);
+  }
+
+  onSidebarToggled(isHidden: boolean) {
+    this.isSidebarHidden = isHidden;
   }
 }

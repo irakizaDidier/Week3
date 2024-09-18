@@ -1,8 +1,15 @@
 <div class="app-container">
-  <app-sidebar (boardSelected)="onBoardSelected($event)"></app-sidebar>
-  <div class="main-layout w-full">
-    <app-navbar [selectedBoardTitle]="selectedBoard"></app-navbar>
-    <app-main-content [selectedBoard]="selectedBoard"></app-main-content>
+  <app-sidebar
+    (boardSelected)="onBoardSelected($event)"
+    (sidebarToggled)="onSidebarToggled($event)"
+    [isSidebarHidden]="isSidebarHidden"
+    class="sidebar"
+    [ngClass]="{ 'collapsed': isSidebarHidden }">
+  </app-sidebar>
 
+  <div class="main-layout" [ngClass]="{ 'full-width': isSidebarHidden }">
+    <app-navbar [selectedBoardTitle]="selectedBoard"
+      [isSidebarHidden]="isSidebarHidden" class="fixed"></app-navbar>
+    <app-main-content [selectedBoard]="selectedBoard"></app-main-content>
   </div>
 </div>

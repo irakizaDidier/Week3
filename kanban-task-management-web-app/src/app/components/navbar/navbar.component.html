@@ -1,12 +1,22 @@
 <nav class="navbar">
-  <div class="navbar-header" (click)="toggleSidebar()">
-    <h1>{{ selectedBoardTitle }}
+  <div class="navbar-header">
+    <div class="logo mr-16" [ngClass]="{ 'hidden': !isSidebarHidden }">
+      <img
+        [src]="(darkMode$ | async) ? 'assets/images/logo-light.svg' : 'assets/images/logo-dark.svg'"
+        alt="Logo" />
+    </div>
+
+    <h1 (click)="toggleSidebar()">{{ selectedBoardTitle }}
       <span class="dropdown-icon" *ngIf="isMobileView">
         {{ isSidebarActive ? '▲' : '▼' }}
       </span>
     </h1>
   </div>
-  <button class="add-task">+ Add New Task</button>
+
+  <button class="add-task">+ Add New Task
+    <img src="assets/images/icon-add-task-mobile.svg" alt="add"
+      class="add-task-mobile-icon" />
+  </button>
 </nav>
 
 <div class="sidebar" *ngIf="isSidebarActive" (click)="preventClose($event)">

@@ -23,3 +23,6 @@ body.dark-mode .navbar {
 body.dark-mode .list {
   background-color: #2b2c37;
 }
+body.dark-mode .theme-switcher {
+  background-color: #20212c;
+}

@@ -31,11 +31,9 @@ export class TaskEffects {
         mergeMap(() =>
           this.http.get<BoardsResponse>(this.dataUrl).pipe(
             map((data) => {
-              console.log('Data loaded from JSON:', data);
               return TaskActions.loadTasksSuccess({ boards: data.boards });
             }),
             catchError((error) => {
-              console.error('Error loading boards:', error.message);
               return of(TaskActions.loadTasksFailure({ error: error.message }));
             })
           )
@@ -66,7 +64,6 @@ export class TaskEffects {
         ofType(TaskActions.updateTask),
         map((action) => {
           const task = action.task;
-          console.log('Updating task:', task);
           return TaskActions.updateTask({ task });
         }),
         catchError((error) =>
@@ -82,7 +79,6 @@ export class TaskEffects {
         ofType(TaskActions.deleteTask),
         map((action) => {
           const taskId = action.taskId;
-          console.log('Deleting task with ID:', taskId);
           return TaskActions.deleteTask({ taskId });
         }),
         catchError((error) =>
@@ -98,9 +94,6 @@ export class TaskEffects {
         ofType(TaskActions.updateSubtaskStatus),
         map((action) => {
           const { taskId, subtaskId, isCompleted } = action;
-          console.log(
-            `Updating subtask ${subtaskId} of task ${taskId} with status ${isCompleted}`
-          );
           return TaskActions.updateSubtaskStatus({
             taskId,
             subtaskId,
