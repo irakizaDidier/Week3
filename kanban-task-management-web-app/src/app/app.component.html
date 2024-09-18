@@ -1,7 +1,7 @@
 <div class="app-container">
   <app-sidebar (boardSelected)="onBoardSelected($event)"></app-sidebar>
   <div class="main-layout w-full">
-    <app-navbar></app-navbar>
+    <app-navbar [selectedBoardTitle]="selectedBoard"></app-navbar>
     <app-main-content [selectedBoard]="selectedBoard"></app-main-content>
 
   </div>

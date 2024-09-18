@@ -7,51 +7,29 @@
     <p>Error: {{ error }}</p>
   </div>
 
-  <ng-container *ngIf="tasks$ | async as tasks">
-    <div *ngIf="tasks.length === 0" class="empty-board">
-      <p>This board is empty. Create a new column to get started.</p>
-      <button class="add-column">+ Add New Column</button>
-    </div>
+  <ng-container *ngIf="tasks.length === 0" class="empty-board">
+    <p>This board is empty. Create a new column to get started.</p>
+    <button class="add-column">+ Add New Column</button>
+  </ng-container>
 
-    <div *ngIf="tasks.length > 0" class="tasks-board">
-      <div class="column">
-        <h3>Todo ({{ getTaskCountByStatus('Todo') }})</h3>
-        <ul>
-          <ng-container *ngFor="let task of getTasksByStatus('Todo')">
-            <li [ngClass]="task.status">
-              <h4>{{ task.title }}</h4>
-              <p>{{ getCompletedSubtaskCount(task) }} of {{ task.subtasks.length
-                }} subtasks</p>
-            </li>
-          </ng-container>
-        </ul>
-      </div>
-
-      <div class="column">
-        <h3>Doing ({{ getTaskCountByStatus('Doing') }})</h3>
-        <ul>
-          <ng-container *ngFor="let task of getTasksByStatus('Doing')">
-            <li [ngClass]="task.status">
-              <h4>{{ task.title }}</h4>
-              <p>{{ getCompletedSubtaskCount(task) }} of {{ task.subtasks.length
-                }} subtasks</p>
-            </li>
-          </ng-container>
-        </ul>
-      </div>
-
-      <div class="column">
-        <h3>Done ({{ getTaskCountByStatus('Done') }})</h3>
-        <ul>
-          <ng-container *ngFor="let task of getTasksByStatus('Done')">
-            <li [ngClass]="task.status">
-              <h4>{{ task.title }}</h4>
-              <p>{{ getCompletedSubtaskCount(task) }} of {{ task.subtasks.length
-                }} subtasks</p>
-            </li>
-          </ng-container>
-        </ul>
-      </div>
+  <ng-container *ngIf="tasks.length > 0">
+    <div class="tasks-board">
+      <ng-container *ngFor="let column of getColumns()">
+        <div class="column">
+          <h3>{{ column.name }} ({{ getTaskCountByStatus(column.name) }})</h3>
+          <ul>
+            <ng-container *ngFor="let task of getTasksByStatus(column.name)">
+              <li [ngClass]="task.status" class="list">
+                <h4>{{ task.title }}</h4>
+                <p class="subtask">
+                  {{ getCompletedSubtaskCount(task) }} of {{
+                  task.subtasks.length }} subtasks
+                </p>
+              </li>
+            </ng-container>
+          </ul>
+        </div>
+      </ng-container>
     </div>
   </ng-container>
 </div>

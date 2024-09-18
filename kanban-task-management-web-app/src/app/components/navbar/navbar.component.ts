@@ -1,9 +1,10 @@
-import { Component, HostListener, Renderer2 } from '@angular/core';
+import { Component, HostListener, Renderer2, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { selectDarkMode } from '../../store/selectors/theme.selectors';
 import * as ThemeActions from '../../store/actions/theme.actions';
 import { ChangeDetectorRef, OnInit } from '@angular/core';
+
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -13,6 +14,8 @@ export class NavbarComponent implements OnInit {
   isSidebarActive = false;
   darkMode$: Observable<boolean>;
   isMobileView = false;
+
+  @Input() selectedBoardTitle: string = 'Platform Launch'; 
 
   constructor(
     private store: Store,
@@ -31,6 +34,8 @@ export class NavbarComponent implements OnInit {
       }
       this.cdr.markForCheck();
     });
+
+    this.checkScreenWidth();
   }
 
   toggleSidebar() {
@@ -55,6 +60,7 @@ export class NavbarComponent implements OnInit {
       this.isSidebarActive = false;
     }
   }
+
   @HostListener('window:resize', ['$event'])
   onResize() {
     this.checkScreenWidth();

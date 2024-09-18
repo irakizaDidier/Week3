@@ -9,7 +9,10 @@
   @apply list-none p-0 my-5 py-5;
 }
 .items-link {
-  @apply hover:rounded-r-full hover:bg-[#635FC7] py-4 px-5 text-[#828FA3] no-underline font-bold  hover:text-white;
+  @apply hover:rounded-r-full hover:bg-[#635FC7] py-3 px-5 text-[#828FA3] no-underline font-bold  hover:text-white cursor-pointer mr-4;
+}
+.active-board {
+  @apply bg-[#635FC7] rounded-r-full text-white;
 }
 .all-boards {
   @apply text-[#828FA3] font-bold;
@@ -18,7 +21,7 @@
   @apply mb-2.5;
 }
 .items-link-create {
-  @apply text-[#635FC7] hover:rounded-r-full hover:bg-[#635FC7] py-4 px-5 no-underline font-bold hover:text-white;
+  @apply text-[#635FC7] hover:rounded-r-full hover:bg-[#635FC7] py-3 px-5 no-underline font-bold hover:text-white mr-4;
 }
 
 .theme-switcher {
@@ -36,7 +39,7 @@
 }
 
 .slider {
-  @apply absolute cursor-pointer top-0 left-0 right-0 bottom-0 bg-[#ccc] transition-all  rounded-full;
+  @apply absolute cursor-pointer top-0 left-0 right-0 bottom-0 bg-[#6c63ff] transition-all  rounded-full;
   transition: 0.4s;
 }
 

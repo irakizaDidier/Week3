@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { Task } from '../../models/task';
+import { Task, Board } from '../../models/task';
 import * as TaskActions from '../actions/task.actions';
 import { createEntityAdapter, EntityState } from '@ngrx/entity';
 
@@ -7,6 +7,7 @@ export interface TaskState extends EntityState<Task> {
   loading: boolean;
   error: string | null;
   selectedTaskId: string | null;
+  boards: Board[];
 }
 
 export const adapter = createEntityAdapter<Task>({
@@ -17,6 +18,7 @@ export const initialState: TaskState = adapter.getInitialState({
   loading: false,
   error: null,
   selectedTaskId: null,
+  boards: [],
 });
 
 export const taskReducer = createReducer(
@@ -26,9 +28,11 @@ export const taskReducer = createReducer(
     loading: true,
     error: null,
   })),
-  on(TaskActions.loadTasksSuccess, (state, { tasks }) =>
-    adapter.setAll(tasks, { ...state, loading: false })
-  ),
+  on(TaskActions.loadTasksSuccess, (state, { boards }) => ({
+    ...state,
+    boards,
+    loading: false,
+  })),
   on(TaskActions.loadTasksFailure, (state, { error }) => ({
     ...state,
     loading: false,

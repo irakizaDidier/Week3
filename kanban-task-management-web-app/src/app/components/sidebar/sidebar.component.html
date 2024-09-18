@@ -4,36 +4,27 @@
       [src]="(darkMode$ | async) ? 'assets/images/logo-light.svg' : 'assets/images/logo-dark.svg'"
       alt="Logo" />
   </div>
+
   <ul class="board-list">
     <li class="pb-4 px-5 all-boards">ALL BOARDS (3)</li>
-    <li>
-      <a (click)="selectBoard('Platform Launch')"
+
+    <li *ngFor="let board of boards">
+      <a [ngClass]="{ 'active-board': isBoardSelected(board) }"
+        (click)="selectBoard(board)"
         class="flex gap-6 items-center items-link">
         <img src="assets/images/icon-board.svg" alt="board" class="h-4 w-4" />
-        Platform Launch
+        {{ board }}
       </a>
     </li>
-    <li>
-      <a (click)="selectBoard('Marketing Plan')"
-        class="flex gap-6 items-center items-link">
-        <img src="assets/images/icon-board.svg" alt="board" class="h-4 w-4" />
-        Marketing Plan
-      </a>
-    </li>
-    <li>
-      <a (click)="selectBoard('Roadmap')"
-        class="flex gap-6 items-center items-link">
-        <img src="assets/images/icon-board.svg" alt="board" class="h-4 w-4" />
-        Roadmap
-      </a>
-    </li>
+
     <li>
       <a routerLink="#" class="flex gap-6 items-center items-link-create">
-        <img src="assets/images/icon-board.svg" alt="board" class="h-4 w-4" /> +
-        Create New Board
+        <img src="assets/images/icon-board.svg" alt="board" class="h-4 w-4" />
+        + Create New Board
       </a>
     </li>
   </ul>
+
   <div class="theme-switcher">
     <img src="assets/images/icon-light-theme.svg" alt="light" />
     <label class="switch">
@@ -41,12 +32,11 @@
         (click)="toggleTheme()">
       <span class="slider"></span>
     </label>
-    <img src="assets/images/icon-dark-theme.svg" alt='dark' />
+    <img src="assets/images/icon-dark-theme.svg" alt="dark" />
   </div>
+
   <button class="hide-sidebar flex items-center gap-6 justify-center">
-    <img src="assets/images/icon-hide-sidebar.svg" alt="hide-log" />
-    <span>
-      Hide Sidebar
-    </span>
+    <img src="assets/images/icon-hide-sidebar.svg" alt="hide-sidebar" />
+    <span>Hide Sidebar</span>
   </button>
 </div>

@@ -1,10 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import * as TaskActions from '../../store/actions/task.actions';
-import { Task } from '../../models/task';
+import { Board, Task, Column } from '../../models/task';
 import {
-  selectAllTasks,
+  selectAllBoards,
   selectTaskLoading,
   selectTaskError,
 } from '../../store/selectors/task.selectors';
@@ -14,31 +14,51 @@ import {
   templateUrl: './main-content.component.html',
   styleUrls: ['./main-content.component.css'],
 })
-export class MainContentComponent implements OnInit {
-  tasks$!: Observable<Task[]>;
+export class MainContentComponent implements OnChanges {
+  @Input() selectedBoard!: string;
+  boards$!: Observable<Board[]>;
   loading$!: Observable<boolean>;
   error$!: Observable<string | null>;
   tasks: Task[] = [];
-
-  @Input() selectedBoard!: string;
+  columns: Column[] = [];
 
   constructor(private store: Store) {}
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['selectedBoard']) {
+      this.loadBoardData(this.selectedBoard);
+    }
+  }
+
   ngOnInit(): void {
     this.store.dispatch(TaskActions.loadTasks());
-    this.tasks$ = this.store.select(selectAllTasks);
+
+    this.boards$ = this.store.select(selectAllBoards);
     this.loading$ = this.store.select(selectTaskLoading);
     this.error$ = this.store.select(selectTaskError);
+    this.loadBoardData(this.selectedBoard);
+  }
 
-    this.tasks$.subscribe((tasks) => {
-      this.tasks = tasks;
+  loadBoardData(boardName: string): void {
+    this.boards$.subscribe((boards) => {
+      const selectedBoard = boards.find((board) => board.name === boardName);
+
+      if (selectedBoard) {
+        this.tasks = selectedBoard.columns.flatMap((column) => column.tasks);
+        this.columns = selectedBoard.columns;
+      }
     });
   }
 
+  getColumns(): Column[] {
+    return this.columns;
+  }
+
   getTasksByStatus(status: string): Task[] {
-    return this.tasks.filter(
-      (task) => task.status === status && task.board === this.selectedBoard
+    const filteredColumns = this.columns.filter(
+      (column) => column.name === status
     );
+    return filteredColumns.flatMap((column) => column.tasks);
   }
 
   getTaskCountByStatus(status: string): number {

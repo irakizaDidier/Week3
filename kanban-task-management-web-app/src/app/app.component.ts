@@ -1,15 +1,23 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css',
+  styleUrls: ['./app.component.css'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'kanban-task-management-web-app';
   selectedBoard: string = 'Platform Launch';
 
-  onBoardSelected(boardName: string): void {
+  ngOnInit() {
+    const storedBoard = localStorage.getItem('selectedBoard');
+    if (storedBoard) {
+      this.selectedBoard = storedBoard;
+    }
+  }
+
+  onBoardSelected(boardName: string) {
     this.selectedBoard = boardName;
+    localStorage.setItem('selectedBoard', boardName);
   }
 }

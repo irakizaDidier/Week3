@@ -1,5 +1,5 @@
-/* .main-content {
-  @apply bg-[#F4F7FD] h-screen p-5;
+.main-content {
+  @apply bg-[#F4F7FD] min-h-screen p-5;
 }
 
 .empty-board {
@@ -9,49 +9,18 @@
 .add-column {
   @apply bg-[#6c63ff] text-white border-none rounded-md px-4 py-2.5 cursor-pointer;
 }
+.subtask {
+  @apply text-[#828FA3];
+}
 
 .add-column:hover {
   @apply bg-[#5a52e8];
-} */
-
-.main-content {
-  background-color: #f4f7fd;
-  height: 100vh;
-  padding: 20px;
-}
-
-.empty-board {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-}
-
-.add-column {
-  background-color: #6c63ff;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 10px 16px;
-  cursor: pointer;
-}
-
-.add-column:hover {
-  background-color: #5a52e8;
 }
 
 .tasks-board {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
-}
-
-.column {
-  background-color: white;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .column h3 {
@@ -64,29 +33,15 @@
 }
 
 .column li {
-  padding: 10px;
-  margin-bottom: 8px;
-  border-radius: 5px;
-  background-color: #f0f0f0;
+  @apply p-5 mb-4 rounded-xl shadow-md;
 }
-
+.list {
+  @apply bg-white;
+}
 .column li.visible {
   display: block;
 }
 
 .column li.hidden {
   display: none;
-}
-
-/* Additional styles for different task statuses */
-.column li.Todo {
-  background-color: #ffeb3b;
-}
-
-.column li.Doing {
-  background-color: #29b6f6;
-}
-
-.column li.Done {
-  background-color: #66bb6a;
 }

@@ -1,9 +1,15 @@
-import { Component, EventEmitter, Output, Renderer2 } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Output,
+  Renderer2,
+  OnInit,
+} from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { selectDarkMode } from '../../store/selectors/theme.selectors';
 import * as ThemeActions from '../../store/actions/theme.actions';
-import { ChangeDetectorRef, OnInit } from '@angular/core';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-sidebar',
@@ -13,6 +19,9 @@ import { ChangeDetectorRef, OnInit } from '@angular/core';
 export class SidebarComponent implements OnInit {
   darkMode$: Observable<boolean>;
   @Output() boardSelected = new EventEmitter<string>();
+
+  boards: string[] = ['Platform Launch', 'Marketing Plan', 'Roadmap'];
+  selectedBoard: string = 'Platform Launch';
 
   constructor(
     private store: Store,
@@ -31,6 +40,7 @@ export class SidebarComponent implements OnInit {
       }
       this.cdr.markForCheck();
     });
+    this.selectBoard(this.selectedBoard);
   }
 
   toggleTheme() {
@@ -38,6 +48,11 @@ export class SidebarComponent implements OnInit {
   }
 
   selectBoard(boardName: string): void {
+    this.selectedBoard = boardName;
     this.boardSelected.emit(boardName);
+  }
+
+  isBoardSelected(boardName: string): boolean {
+    return this.selectedBoard === boardName;
   }
 }

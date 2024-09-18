@@ -19,3 +19,7 @@ body.dark-mode .navbar {
   background-color: #2b2c37;
   @apply border-gray-700;
 }
+
+body.dark-mode .list {
+  background-color: #2b2c37;
+}

@@ -1,6 +1,6 @@
 <nav class="navbar">
   <div class="navbar-header" (click)="toggleSidebar()">
-    <h1>Platform Launch
+    <h1>{{ selectedBoardTitle }}
       <span class="dropdown-icon" *ngIf="isMobileView">
         {{ isSidebarActive ? '▲' : '▼' }}
       </span>

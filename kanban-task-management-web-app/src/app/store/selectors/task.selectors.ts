@@ -22,3 +22,8 @@ export const selectTaskError = createSelector(
 
 export const selectTaskById = (taskId: string) =>
   createSelector(selectTaskEntities, (entities) => entities[taskId]);
+
+export const selectAllBoards = createSelector(
+  selectTaskState,
+  (state: TaskState) => state.boards
+);
