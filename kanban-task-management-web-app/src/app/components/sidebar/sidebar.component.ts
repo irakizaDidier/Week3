@@ -28,6 +28,8 @@ export class SidebarComponent implements OnInit {
   boards: string[] = ['Platform Launch', 'Marketing Plan', 'Roadmap'];
   selectedBoard: string = 'Platform Launch';
 
+  isCreateBoardModalOpen = false;
+
   constructor(
     private store: Store,
     private cdr: ChangeDetectorRef,
@@ -64,5 +66,12 @@ export class SidebarComponent implements OnInit {
   toggleSidebar(): void {
     this.isSidebarHidden = !this.isSidebarHidden;
     this.sidebarToggled.emit(this.isSidebarHidden);
+  }
+
+  openCreateBoardModal() {
+    this.isCreateBoardModalOpen = true;
+  }
+  closeCreateBoardModal() {
+    this.isCreateBoardModalOpen = false;
   }
 }

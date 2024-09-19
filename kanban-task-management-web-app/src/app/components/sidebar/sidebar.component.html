@@ -18,7 +18,8 @@
     </li>
 
     <li>
-      <a routerLink="#" class="flex gap-6 items-center items-link-create">
+      <a routerLink="#" class="flex gap-6 items-center items-link-create"
+        (click)="openCreateBoardModal()">
         <img src="assets/images/icon-board.svg" alt="board" class="h-4 w-4" />
         + Create New Board
       </a>
@@ -45,3 +46,6 @@
 <button *ngIf="isSidebarHidden" class="show-sidebar" (click)="toggleSidebar()">
   <img src="assets/images/icon-show-sidebar.svg" alt="show-sidebar" />
 </button>
+
+<app-create-board-modal *ngIf="isCreateBoardModalOpen"
+  (closeModal)="closeCreateBoardModal()"></app-create-board-modal>

@@ -16,6 +16,7 @@ import { environment } from '../environment/environment';
 import { taskReducer } from './store/reducers/task.reducers';
 import { TaskEffects } from './store/effects/task.effects';
 import { TaskModalComponent } from './components/task-modal/task-modal.component';
+import { CreateBoardModalComponent } from './components/create-board-modal/create-board-modal.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { TaskModalComponent } from './components/task-modal/task-modal.component
     NavbarComponent,
     MainContentComponent,
     TaskModalComponent,
+    CreateBoardModalComponent,
   ],
   imports: [
     BrowserModule,

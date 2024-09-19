@@ -1,0 +1,35 @@
+.modal-overlay {
+  @apply fixed top-0 left-0 w-screen h-screen bg-black bg-opacity-50 flex justify-center items-center z-[1050];
+}
+
+.modal-content {
+  @apply bg-white p-8 rounded-lg w-11/12 max-w-[500px] shadow-lg relative;
+}
+
+input {
+  @apply w-full p-3 mb-4 border border-gray-300 rounded-md;
+}
+
+.column {
+  @apply flex items-center mb-4;
+}
+
+.column input {
+  @apply flex-1 mr-2;
+}
+
+.column button {
+  @apply bg-transparent border-none text-base text-[#828fa3] cursor-pointer;
+}
+
+.add-column {
+  @apply bg-[#f0f3fc] text-[#635fc7] p-3 border-none w-full rounded-md text-base cursor-pointer mb-4;
+}
+
+.create-board {
+  @apply bg-[#635fc7] text-white p-3 w-full border-none rounded-md text-base cursor-pointer mt-4;
+}
+
+.close-modal {
+  @apply absolute top-2.5 right-2.5 bg-transparent border-none text-2xl text-[#828fa3] cursor-pointer;
+}
