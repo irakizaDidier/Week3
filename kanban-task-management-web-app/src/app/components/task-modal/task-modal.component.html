@@ -1,0 +1,32 @@
+<div class="modal-background" (click)="closeModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <h2>Add New Task</h2>
+    <form>
+      <label for="title">Title</label>
+      <input id="title" type="text" placeholder="e.g. Take coffee break"
+        [(ngModel)]="task.title" name="title" />
+
+      <label for="description">Description</label>
+      <textarea id="description"
+        placeholder="e.g. It’s always good to take a break. This 15-minute break will recharge the batteries a little."
+        [(ngModel)]="task.description" name="description"></textarea>
+
+      <div *ngFor="let subtask of subtasks; let i = index" class="subtask">
+        <input type="text" [(ngModel)]="subtasks[i]" name="subtask{{i}}"
+          placeholder="e.g. Make coffee" />
+        <button type="button" (click)="removeSubtask(i)">Remove</button>
+      </div>
+
+      <button type="button" (click)="addSubtask()">+ Add New Subtask</button>
+
+      <label for="status">Status</label>
+      <select id="status" [(ngModel)]="task.status" name="status">
+        <option value="todo">Todo</option>
+        <option value="in-progress">In Progress</option>
+        <option value="done">Done</option>
+      </select>
+
+      <button type="submit" (click)="createTask()">Create Task</button>
+    </form>
+  </div>
+</div>

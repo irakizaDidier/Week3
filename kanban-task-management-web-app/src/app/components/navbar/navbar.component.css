@@ -128,3 +128,27 @@ input:checked + .slider:before {
 .logo {
   display: block;
 }
+
+.add-task {
+  background-color: #635fc7;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 30px;
+  cursor: pointer;
+}
+
+.add-task-mobile-icon {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .add-task {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .add-task-mobile-icon {
+    display: inline-block;
+  }
+}

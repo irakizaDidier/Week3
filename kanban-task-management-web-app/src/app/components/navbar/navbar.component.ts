@@ -74,4 +74,19 @@ export class NavbarComponent implements OnInit {
   toggleTheme() {
     this.store.dispatch(ThemeActions.toggleTheme());
   }
+
+  isModalOpen = false;
+
+  openModal() {
+    this.isModalOpen = true;
+  }
+
+  closeModal() {
+    this.isModalOpen = false;
+  }
+
+  addTask(task: any) {
+    console.log('New task created:', task);
+    this.closeModal();
+  }
 }

@@ -14,7 +14,7 @@
     </h1>
   </div>
 
-  <button class="add-task">+ Add New Task
+  <button class="add-task" (click)="openModal()">+ Add New Task
     <img src="assets/images/icon-add-task-mobile.svg" alt="add"
       class="add-task-mobile-icon" />
   </button>
@@ -43,3 +43,5 @@
     </div>
   </div>
 </div>
+<app-task-modal *ngIf="isModalOpen" (close)="closeModal()"
+  (addTask)="addTask($event)"></app-task-modal>

@@ -4,6 +4,7 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { HttpClientModule } from '@angular/common/http';
 import { EffectsModule } from '@ngrx/effects';
+import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -14,6 +15,7 @@ import { themeReducer } from './store/reducers/theme.reducer';
 import { environment } from '../environment/environment';
 import { taskReducer } from './store/reducers/task.reducers';
 import { TaskEffects } from './store/effects/task.effects';
+import { TaskModalComponent } from './components/task-modal/task-modal.component';
 
 @NgModule({
   declarations: [
@@ -21,9 +23,11 @@ import { TaskEffects } from './store/effects/task.effects';
     SidebarComponent,
     NavbarComponent,
     MainContentComponent,
+    TaskModalComponent,
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     AppRoutingModule,
     EffectsModule.forRoot([TaskEffects]),
     StoreModule.forRoot({
