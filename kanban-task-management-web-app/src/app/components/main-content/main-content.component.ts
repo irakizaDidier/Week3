@@ -76,6 +76,7 @@ export class MainContentComponent implements OnChanges {
   getCompletedSubtaskCount(task: Task): number {
     return task.subtasks.filter((subtask) => subtask.isCompleted).length;
   }
+
   getColumnColorClass(columnName: string): string {
     switch (columnName.toLowerCase()) {
       case 'todo':
@@ -91,4 +92,6 @@ export class MainContentComponent implements OnChanges {
         return '';
     }
   }
+
+  addNewColumn(): void {}
 }

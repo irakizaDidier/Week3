@@ -3,11 +3,11 @@
 }
 
 .sidebar {
-  @apply w-[250px] transition-all duration-300 ease-in-out;
+  @apply w-[20%] transition-all duration-300 ease-in-out;
 }
 
 .main-layout {
-  @apply flex-1 transition-all duration-300 ease-in-out;
+  @apply flex-1 transition-all duration-300 ease-in-out w-[80%];
 }
 
 .sidebar.collapsed {

@@ -6,7 +6,8 @@
         alt="Logo" />
     </div>
 
-    <h1 (click)="toggleSidebar()">{{ selectedBoardTitle }}
+    <h1 (click)="toggleSidebar()" class="text-2xl font-bold">{{
+      selectedBoardTitle }}
       <span class="dropdown-icon" *ngIf="isMobileView">
         {{ isSidebarActive ? '▲' : '▼' }}
       </span>

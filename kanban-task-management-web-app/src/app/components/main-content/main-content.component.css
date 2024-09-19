@@ -1,5 +1,5 @@
 .main-content {
-  @apply bg-[#F4F7FD] min-h-screen p-5;
+  @apply bg-[#F4F7FD] min-h-screen p-5 overflow-x-auto;
 }
 
 .empty-board {
@@ -9,22 +9,41 @@
 .add-column {
   @apply bg-[#6c63ff] text-white border-none rounded-md px-4 py-2.5 cursor-pointer;
 }
-.subtask {
-  @apply text-[#828FA3];
-}
 
 .add-column:hover {
   @apply bg-[#5a52e8];
 }
 
-.tasks-board {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+.subtask {
+  @apply text-[#828FA3];
 }
+
+.tasks-board {
+  display: flex;
+  gap: 20px;
+  width: max-content;
+  min-width: 100%;
+}
+
+.column {
+  @apply flex-shrink-0;
+  width: 250px;
+  height: 600px;
+  overflow-y: auto;
+  border-radius: 8px;
+  padding: 16px;
+
+  scrollbar-width: none;
+}
+
+.column::-webkit-scrollbar {
+  display: none;
+}
+
 .column h3 {
   @apply flex items-center font-bold;
   font-size: 16px;
+  margin-bottom: 8px;
 }
 
 .status-dot {
@@ -50,18 +69,30 @@
 .column ul {
   list-style-type: none;
   padding: 0;
+  margin: 0;
 }
 
 .column li {
   @apply p-5 mb-4 rounded-xl shadow-md;
 }
+
 .list {
   @apply bg-white;
 }
+
 .column li.visible {
   display: block;
 }
 
 .column li.hidden {
   display: none;
+}
+
+.create-column {
+  @apply flex items-center justify-center bg-[#ECF2FB] my-20 rounded-xl;
+  height: 515px;
+}
+
+.create-task-btn button {
+  @apply text-[#828FA3] font-bold px-2 py-1 cursor-pointer;
 }
