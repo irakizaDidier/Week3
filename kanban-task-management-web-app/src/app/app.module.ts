@@ -5,6 +5,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { HttpClientModule } from '@angular/common/http';
 import { EffectsModule } from '@ngrx/effects';
 import { FormsModule } from '@angular/forms';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -17,6 +18,8 @@ import { taskReducer } from './store/reducers/task.reducers';
 import { TaskEffects } from './store/effects/task.effects';
 import { TaskModalComponent } from './components/task-modal/task-modal.component';
 import { CreateBoardModalComponent } from './components/create-board-modal/create-board-modal.component';
+import { EditBoardModalComponent } from './components/edit-board-modal/edit-board-modal.component';
+import { DeleteBoardModalComponent } from './components/delete-board-modal/delete-board-modal.component';
 
 @NgModule({
   declarations: [
@@ -26,10 +29,13 @@ import { CreateBoardModalComponent } from './components/create-board-modal/creat
     MainContentComponent,
     TaskModalComponent,
     CreateBoardModalComponent,
+    EditBoardModalComponent,
+    DeleteBoardModalComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    DragDropModule,
     AppRoutingModule,
     EffectsModule.forRoot([TaskEffects]),
     StoreModule.forRoot({

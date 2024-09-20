@@ -19,6 +19,7 @@
 }
 
 .tasks-board {
+  @apply cursor-pointer;
   display: flex;
   gap: 20px;
   width: max-content;
@@ -95,4 +96,24 @@
 
 .create-task-btn button {
   @apply text-[#828FA3] font-bold px-2 py-1 cursor-pointer;
+}
+
+.cdk-drop-list {
+  min-height: 100px;
+  background: #f4f7fd;
+  padding: 8px;
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+
+.cdk-drag-preview {
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.cdk-drop-list-dragging {
+  background: #e0e0e0;
+}
+
+.cdk-drag-placeholder {
+  opacity: 0.5;
 }

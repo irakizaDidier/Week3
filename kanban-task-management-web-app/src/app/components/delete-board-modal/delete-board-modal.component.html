@@ -1,0 +1,12 @@
+<div class="modal">
+  <div class="modal-content">
+    <h1 class="text-[#EA5555] text-2xl">Delete this board</h1>
+    <p>Are you sure you want to delete the ‘{{ boardTitle }}’ board?
+      This action will remove all columns and tasks and cannot be reversed.</p>
+
+    <div class="buttons">
+      <button class="cancel-btn" (click)="onCancel()">Cancel</button>
+      <button class="delete-btn" (click)="onDelete()">Delete</button>
+    </div>
+  </div>
+</div>

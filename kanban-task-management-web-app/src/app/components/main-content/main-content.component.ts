@@ -1,6 +1,11 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import {
+  CdkDragDrop,
+  moveItemInArray,
+  transferArrayItem,
+} from '@angular/cdk/drag-drop';
 import * as TaskActions from '../../store/actions/task.actions';
 import { Board, Task, Column } from '../../models/task';
 import {
@@ -94,4 +99,19 @@ export class MainContentComponent implements OnChanges {
   }
 
   addNewColumn(): void {}
+
+  drop(event: CdkDragDrop<Task[]>, newStatus: string): void {
+    if (event.previousContainer !== event.container) {
+      const task = { ...event.previousContainer.data[event.previousIndex] };
+      const updatedTask = { ...task, status: newStatus };
+      console.log('Updated Task:', updatedTask);
+      this.store.dispatch(TaskActions.updateTask({ task: updatedTask }));
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
+    }
+  }
 }

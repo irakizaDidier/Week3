@@ -1,0 +1,30 @@
+<div class="modal" (click)="closeModal()">
+  <div class="modal-content" (click)="preventClose($event)">
+    <button class="close-btn" (click)="closeModal()">×</button>
+    <h2>Edit Board</h2>
+
+    <form>
+      <label for="title">Title</label>
+      <input id="title" type="text" placeholder="e.g. Platform Launch" />
+
+      <div class="columns">
+        <label for="columns">Columns</label>
+        <div *ngFor="let column of columns; let i = index" class="column">
+          <input
+            [value]="column"
+            placeholder="e.g. Todo"
+            (change)="updateColumn($event, i)" />
+
+          <button type="button" (click)="removeColumn(i)">
+            <img src="assets/images/icon-cross.svg" alt="remove column" />
+          </button>
+        </div>
+        <button type="button" class="add-column-btn" (click)="addColumn()">
+          + Add New Column
+        </button>
+      </div>
+
+      <button type="submit" class="save-btn">Save Changes</button>
+    </form>
+  </div>
+</div>

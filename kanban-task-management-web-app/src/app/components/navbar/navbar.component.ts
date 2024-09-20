@@ -15,6 +15,10 @@ export class NavbarComponent implements OnInit {
   darkMode$: Observable<boolean>;
   isMobileView = false;
 
+  isDropdownOpen = false;
+  isEditBoardModalOpen: boolean = false;
+  isDeleteModalOpen: boolean = false;
+
   @Input() selectedBoardTitle: string = 'Platform Launch';
   @Input() isSidebarHidden: boolean = false;
 
@@ -60,6 +64,18 @@ export class NavbarComponent implements OnInit {
     ) {
       this.isSidebarActive = false;
     }
+
+    const dropdown = document.querySelector('.dropdown-menu');
+    const ellipsisButton = document.querySelector('.ellipsis-button');
+    if (
+      this.isDropdownOpen &&
+      dropdown &&
+      ellipsisButton &&
+      !dropdown.contains(event.target as Node) &&
+      !ellipsisButton.contains(event.target as Node)
+    ) {
+      this.isDropdownOpen = false;
+    }
   }
 
   @HostListener('window:resize', ['$event'])
@@ -88,5 +104,30 @@ export class NavbarComponent implements OnInit {
   addTask(task: any) {
     console.log('New task created:', task);
     this.closeModal();
+  }
+
+  toggleDropdown() {
+    this.isDropdownOpen = !this.isDropdownOpen;
+  }
+
+  openEditBoardModal() {
+    this.isEditBoardModalOpen = true;
+  }
+
+  closeEditBoardModal() {
+    this.isEditBoardModalOpen = false;
+  }
+
+  openDeleteBoardModal() {
+    this.isDeleteModalOpen = true;
+  }
+
+  closeDeleteBoardModal() {
+    this.isDeleteModalOpen = false;
+  }
+
+  deleteBoard() {
+    console.log(`Deleting board: ${this.selectedBoardTitle}`);
+    this.isDeleteModalOpen = false;
   }
 }
