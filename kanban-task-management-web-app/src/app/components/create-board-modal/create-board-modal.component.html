@@ -7,21 +7,23 @@
       type="text"
       placeholder="e.g. Web Design"
       [(ngModel)]="boardName" />
+
     <label>Columns</label>
-    <div *ngFor="let column of columns; let i = index" class="column">
+    <div *ngFor="let column of columns; let i = index; trackBy: trackByFn"
+      class="column">
       <input
         type="text"
-        [(ngModel)]="columns[i]"
+        [(ngModel)]="column.name"
         placeholder="Enter column name" />
       <button type="button" (click)="removeColumn(i)">&#x2715;</button>
     </div>
-    <button class="add-column" type="button" (click)="addColumn()">
-      + Add New Column
-    </button>
 
-    <button class="create-board" type="button" (click)="createBoard()">
-      Create New Board
-    </button>
+    <button class="add-column" type="button" (click)="addColumn()">+ Add New
+      Column</button>
+
+    <button class="create-board" type="button" (click)="createBoard()">Create
+      New Board</button>
+
     <button class="close-modal"
       (click)="closeCreateBoardModal()">&#x2715;</button>
   </div>

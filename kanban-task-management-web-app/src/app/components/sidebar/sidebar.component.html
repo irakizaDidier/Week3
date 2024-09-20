@@ -6,19 +6,20 @@
   </div>
 
   <ul class="board-list">
-    <li class="pb-4 px-5 all-boards">ALL BOARDS (3)</li>
+    <li class="pb-4 px-5 all-boards">ALL BOARDS ({{ (boards$ | async)?.length ||
+      0 }})</li>
 
-    <li *ngFor="let board of boards">
-      <a [ngClass]="{ 'active-board': isBoardSelected(board) }"
-        (click)="selectBoard(board)"
+    <li *ngFor="let board of (boards$ | async)">
+      <a [ngClass]="{ 'active-board': isBoardSelected(board.name) }"
+        (click)="selectBoard(board.name)"
         class="flex gap-6 items-center items-link">
         <img src="assets/images/icon-board.svg" alt="board" class="h-4 w-4" />
-        {{ board }}
+        {{ board.name }}
       </a>
     </li>
 
     <li>
-      <a routerLink="#" class="flex gap-6 items-center items-link-create"
+      <a class="flex gap-6 items-center items-link-create"
         (click)="openCreateBoardModal()">
         <img src="assets/images/icon-board.svg" alt="board" class="h-4 w-4" />
         + Create New Board
@@ -30,7 +31,7 @@
     <img src="assets/images/icon-light-theme.svg" alt="light" />
     <label class="switch">
       <input type="checkbox" [checked]="darkMode$ | async"
-        (click)="toggleTheme()">
+        (click)="toggleTheme()" />
       <span class="slider"></span>
     </label>
     <img src="assets/images/icon-dark-theme.svg" alt="dark" />

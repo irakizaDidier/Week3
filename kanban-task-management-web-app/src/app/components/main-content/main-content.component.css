@@ -3,7 +3,7 @@
 }
 
 .empty-board {
-  @apply flex flex-col items-center justify-center h-full;
+  @apply flex flex-col items-center justify-center min-h-screen;
 }
 
 .add-column {

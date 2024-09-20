@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { Actions, ofType } from '@ngrx/effects';
+import { inject, Injectable } from '@angular/core';
+import { Actions, ofType, createEffect } from '@ngrx/effects';
 import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 import { of, Subscription } from 'rxjs';
@@ -12,17 +12,15 @@ export class TaskEffects {
   private readonly dataUrl = '/assets/data/data.json';
   private subscription: Subscription;
 
-  constructor(
-    private actions$: Actions,
-    private http: HttpClient,
-    private store: Store
-  ) {
+  constructor(private http: HttpClient, private store: Store) {
     this.subscription = this.handleLoadTasks();
     this.subscription.add(this.handleAddTask());
     this.subscription.add(this.handleUpdateTask());
     this.subscription.add(this.handleDeleteTask());
     this.subscription.add(this.handleUpdateSubtaskStatus());
   }
+
+  private actions$ = inject(Actions);
 
   private handleLoadTasks(): Subscription {
     return this.actions$
@@ -109,4 +107,14 @@ export class TaskEffects {
       )
       .subscribe((action) => this.store.dispatch(action));
   }
+
+  createBoard$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(TaskActions.createBoard),
+      map((action) => {
+        const board = action.board;
+        return TaskActions.addBoard({ board });
+      })
+    )
+  );
 }

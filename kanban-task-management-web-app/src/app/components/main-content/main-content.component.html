@@ -7,10 +7,10 @@
     <p>Error: {{ error }}</p>
   </div>
 
-  <ng-container *ngIf="tasks.length === 0" class="empty-board">
+  <div *ngIf="tasks.length === 0" class="empty-board">
     <p>This board is empty. Create a new column to get started.</p>
     <button class="add-column">+ Add New Column</button>
-  </ng-container>
+  </div>
 
   <ng-container *ngIf="tasks.length > 0">
     <div class="tasks-board" cdkDropListGroup>

@@ -23,42 +23,28 @@ export const initialState: TaskState = adapter.getInitialState({
 
 export const taskReducer = createReducer(
   initialState,
-
-  // Handle task loading
   on(TaskActions.loadTasks, (state) => ({
     ...state,
     loading: true,
     error: null,
   })),
-
-  // Handle task loading success
   on(TaskActions.loadTasksSuccess, (state, { boards }) => ({
     ...state,
     boards,
     loading: false,
   })),
-
-  // Handle task loading failure
   on(TaskActions.loadTasksFailure, (state, { error }) => ({
     ...state,
     loading: false,
     error,
   })),
-
-  // Add a task
   on(TaskActions.addTask, (state, { task }) => adapter.addOne(task, state)),
-
-  // Update task status or other fields
-  on(TaskActions.updateTask, (state, { task }) => {
-    return adapter.updateOne({ id: task.id, changes: task }, state);
-  }),
-
-  // Remove a task
+  on(TaskActions.updateTask, (state, { task }) =>
+    adapter.updateOne({ id: task.id, changes: task }, state)
+  ),
   on(TaskActions.deleteTask, (state, { taskId }) =>
     adapter.removeOne(taskId, state)
   ),
-
-  // Update subtask status
   on(
     TaskActions.updateSubtaskStatus,
     (state, { taskId, subtaskId, isCompleted }) => {
@@ -74,7 +60,11 @@ export const taskReducer = createReducer(
       }
       return state;
     }
-  )
+  ),
+  on(TaskActions.addBoard, (state, { board }) => ({
+    ...state,
+    boards: [...state.boards, board],
+  }))
 );
 
 export const { selectAll, selectEntities, selectIds, selectTotal } =

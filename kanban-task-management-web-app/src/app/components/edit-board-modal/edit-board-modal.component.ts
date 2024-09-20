@@ -7,7 +7,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 })
 export class EditBoardModalComponent {
   @Input() boardTitle: string = 'Platform Launch';
-  @Output() close = new EventEmitter<void>(); 
+  @Output() close = new EventEmitter<void>();
   columns: string[] = ['Todo', 'Doing', 'Done'];
 
   updateColumn(event: Event, index: number) {
@@ -30,10 +30,10 @@ export class EditBoardModalComponent {
   }
 
   closeModal() {
-    this.close.emit(); 
+    this.close.emit();
   }
 
   preventClose(event: Event) {
-    event.stopPropagation(); 
+    event.stopPropagation();
   }
 }

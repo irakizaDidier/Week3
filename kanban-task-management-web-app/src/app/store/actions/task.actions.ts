@@ -1,6 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { Board } from '../../models/task';
-import { Task } from '../../models/task';
+import { Board, Task } from '../../models/task';
 
 export const loadTasks = createAction('[Task/API] Load Tasks');
 
@@ -32,4 +31,14 @@ export const deleteTask = createAction(
 export const updateSubtaskStatus = createAction(
   '[Subtask/API] Update Subtask Status',
   props<{ taskId: string; subtaskId: string; isCompleted: boolean }>()
+);
+
+export const createBoard = createAction(
+  '[Board/API] Create Board',
+  props<{ board: Board }>()
+);
+
+export const addBoard = createAction(
+  '[Board/API] Add Board',
+  props<{ board: Board }>()
 );

@@ -5,12 +5,15 @@ import {
   Input,
   Renderer2,
   OnInit,
+  ChangeDetectorRef,
 } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { selectDarkMode } from '../../store/selectors/theme.selectors';
 import * as ThemeActions from '../../store/actions/theme.actions';
-import { ChangeDetectorRef } from '@angular/core';
+import { Board } from '../../models/task';
+import * as TaskActions from '../../store/actions/task.actions';
+import { selectAllBoards } from '../../store/selectors/task.selectors';
 
 @Component({
   selector: 'app-sidebar',
@@ -19,15 +22,14 @@ import { ChangeDetectorRef } from '@angular/core';
 })
 export class SidebarComponent implements OnInit {
   darkMode$: Observable<boolean>;
+  boards$: Observable<Board[]>;
 
   @Input() isSidebarHidden = false;
 
   @Output() boardSelected = new EventEmitter<string>();
   @Output() sidebarToggled = new EventEmitter<boolean>();
 
-  boards: string[] = ['Platform Launch', 'Marketing Plan', 'Roadmap'];
-  selectedBoard: string = 'Platform Launch';
-
+  selectedBoard: string = '';
   isCreateBoardModalOpen = false;
 
   constructor(
@@ -36,6 +38,7 @@ export class SidebarComponent implements OnInit {
     private renderer: Renderer2
   ) {
     this.darkMode$ = this.store.select(selectDarkMode);
+    this.boards$ = this.store.select(selectAllBoards);
   }
 
   ngOnInit() {
@@ -47,7 +50,11 @@ export class SidebarComponent implements OnInit {
       }
       this.cdr.markForCheck();
     });
-    this.selectBoard(this.selectedBoard);
+    this.boards$.subscribe((boards) => {
+      if (boards.length > 0 && !this.selectedBoard) {
+        this.selectBoard(boards[0].name);
+      }
+    });
   }
 
   toggleTheme() {
@@ -71,7 +78,25 @@ export class SidebarComponent implements OnInit {
   openCreateBoardModal() {
     this.isCreateBoardModalOpen = true;
   }
+
   closeCreateBoardModal() {
     this.isCreateBoardModalOpen = false;
+  }
+
+  createBoard(boardName: string) {
+    if (boardName.trim()) {
+      const newBoard: Board = {
+        name: boardName,
+        columns: [
+          { name: 'Todo', tasks: [] },
+          { name: 'Doing', tasks: [] },
+        ],
+      };
+
+      this.store.dispatch(TaskActions.addBoard({ board: newBoard }));
+      this.closeCreateBoardModal();
+    } else {
+      alert('Please provide a board name.');
+    }
   }
 }

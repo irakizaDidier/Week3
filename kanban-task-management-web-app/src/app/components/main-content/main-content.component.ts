@@ -1,4 +1,10 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnChanges,
+  SimpleChanges,
+} from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import {
@@ -27,7 +33,7 @@ export class MainContentComponent implements OnChanges {
   tasks: Task[] = [];
   columns: Column[] = [];
 
-  constructor(private store: Store) {}
+  constructor(private store: Store, private cdRef: ChangeDetectorRef) {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['selectedBoard']) {
