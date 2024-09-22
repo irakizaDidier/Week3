@@ -23,11 +23,11 @@ input {
 }
 
 .add-column {
-  @apply bg-[#f0f3fc] text-[#635fc7] p-3 border-none w-full rounded-md text-base cursor-pointer mb-4;
+  @apply bg-[#f0f3fc] text-[#635fc7] px-3 py-2 border-none w-full rounded-full text-base cursor-pointer mb-4;
 }
 
 .create-board {
-  @apply bg-[#635fc7] text-white p-3 w-full border-none rounded-md text-base cursor-pointer mt-4;
+  @apply bg-[#635fc7] text-white px-3 py-2 w-full border-none rounded-full text-base cursor-pointer mt-4;
 }
 
 .close-modal {

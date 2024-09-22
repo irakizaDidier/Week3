@@ -25,12 +25,12 @@ export const updateTask = createAction(
 
 export const deleteTask = createAction(
   '[Task/API] Delete Task',
-  props<{ taskId: string }>()
+  props<{ taskTitle: string }>()
 );
 
 export const updateSubtaskStatus = createAction(
-  '[Subtask/API] Update Subtask Status',
-  props<{ taskId: string; subtaskId: string; isCompleted: boolean }>()
+  '[Task] Update Subtask Status',
+  props<{ taskTitle: string; subtaskTitle: string; isCompleted: boolean }>()
 );
 
 export const createBoard = createAction(

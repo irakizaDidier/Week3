@@ -42,19 +42,19 @@ export const taskReducer = createReducer(
   on(TaskActions.updateTask, (state, { task }) =>
     adapter.updateOne({ id: task.id, changes: task }, state)
   ),
-  on(TaskActions.deleteTask, (state, { taskId }) =>
-    adapter.removeOne(taskId, state)
+  on(TaskActions.deleteTask, (state, { taskTitle }) =>
+    adapter.removeOne(taskTitle, state)
   ),
   on(
     TaskActions.updateSubtaskStatus,
-    (state, { taskId, subtaskId, isCompleted }) => {
-      const task = state.entities[taskId];
+    (state, { taskTitle, subtaskTitle, isCompleted }) => {
+      const task = state.entities[taskTitle];
       if (task) {
         const updatedSubtasks = task.subtasks.map((subtask) =>
-          subtask.id === subtaskId ? { ...subtask, isCompleted } : subtask
+          subtask.id === subtaskTitle ? { ...subtask, isCompleted } : subtask
         );
         return adapter.updateOne(
-          { id: taskId, changes: { subtasks: updatedSubtasks } },
+          { id: taskTitle, changes: { subtasks: updatedSubtasks } },
           state
         );
       }

@@ -1,6 +1,5 @@
 <div class="modal" (click)="closeModal()">
   <div class="modal-content" (click)="preventClose($event)">
-    <button class="close-btn" (click)="closeModal()">×</button>
     <h2>Edit Board</h2>
 
     <form>
@@ -12,10 +11,12 @@
         <div *ngFor="let column of columns; let i = index" class="column">
           <input
             [value]="column"
+            class="column-input mx-2"
             placeholder="e.g. Todo"
             (change)="updateColumn($event, i)" />
 
-          <button type="button" (click)="removeColumn(i)">
+          <button type="button" (click)="removeColumn(i)"
+            class="flex items-center">
             <img src="assets/images/icon-cross.svg" alt="remove column" />
           </button>
         </div>

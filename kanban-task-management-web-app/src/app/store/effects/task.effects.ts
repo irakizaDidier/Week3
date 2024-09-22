@@ -76,8 +76,8 @@ export class TaskEffects {
       .pipe(
         ofType(TaskActions.deleteTask),
         map((action) => {
-          const taskId = action.taskId;
-          return TaskActions.deleteTask({ taskId });
+          const taskTitle = action.taskTitle;
+          return TaskActions.deleteTask({ taskTitle });
         }),
         catchError((error) =>
           of({ type: '[Task/API] Delete Task Failure', error: error.message })
@@ -91,10 +91,10 @@ export class TaskEffects {
       .pipe(
         ofType(TaskActions.updateSubtaskStatus),
         map((action) => {
-          const { taskId, subtaskId, isCompleted } = action;
+          const { taskTitle, subtaskTitle, isCompleted } = action;
           return TaskActions.updateSubtaskStatus({
-            taskId,
-            subtaskId,
+            taskTitle,
+            subtaskTitle,
             isCompleted,
           });
         }),

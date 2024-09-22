@@ -77,10 +77,6 @@
   @apply p-5 mb-4 rounded-xl shadow-md;
 }
 
-.list {
-  @apply bg-white;
-}
-
 .column li.visible {
   display: block;
 }

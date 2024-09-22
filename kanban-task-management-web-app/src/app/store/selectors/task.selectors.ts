@@ -27,3 +27,11 @@ export const selectAllBoards = createSelector(
   selectTaskState,
   (state: TaskState) => state.boards
 );
+
+export const selectTaskByTitle = (taskTitle: string) =>
+  createSelector(selectAllTasks, (tasks) => {
+    console.log('Checking tasks for title:', taskTitle);
+    const foundTask = tasks.find((task) => task.title === taskTitle);
+    console.log('Found Task:', foundTask);
+    return foundTask;
+  });

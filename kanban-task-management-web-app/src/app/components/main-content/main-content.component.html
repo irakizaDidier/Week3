@@ -14,9 +14,9 @@
 
   <ng-container *ngIf="tasks.length > 0">
     <div class="tasks-board" cdkDropListGroup>
-      <ng-container *ngFor="let column of getColumns()">
+      <div *ngFor="let column of getColumns()">
         <div class="column">
-          <div class="flex items-center mb-6">
+          <div class="flex items-center mb-6 ">
             <span class="status-dot"
               [ngClass]="getColumnColorClass(column.name)"></span>
             <h3>{{ column.name }} ({{ getTaskCountByStatus(column.name) }})</h3>
@@ -24,16 +24,19 @@
 
           <ul cdkDropList [cdkDropListData]="getTasksByStatus(column.name)"
             (cdkDropListDropped)="drop($event, column.name)">
-            <ng-container *ngFor="let task of getTasksByStatus(column.name)">
-              <li cdkDrag [ngClass]="task.status" class="list">
+            <div *ngFor="let task of getTasksByStatus(column.name)">
+              <li cdkDrag [ngClass]="task.status" class="list"
+                (click)="openTaskModal(task)">
                 <h4>{{ task.title }}</h4>
-                <p class="subtask">{{ getCompletedSubtaskCount(task) }} of {{
+                <p class="subtask ">{{ getCompletedSubtaskCount(task)
+                  }} of {{
                   task.subtasks.length }} subtasks</p>
               </li>
-            </ng-container>
+            </div>
           </ul>
         </div>
-      </ng-container>
+      </div>
+
       <div class="column create-column">
         <div class="create-task-btn">
           <button (click)="addNewColumn()">+ New Column</button>
@@ -41,4 +44,6 @@
       </div>
     </div>
   </ng-container>
+
+  <app-single-task *ngIf="selectedTask" [task]="selectedTask"></app-single-task>
 </div>

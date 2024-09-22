@@ -1,0 +1,30 @@
+<div class="modal-container" *ngIf="task">
+  <div class="modal">
+    <h3>{{ task.title }}</h3>
+    <p>{{ task.description }}</p>
+
+    <div class="subtasks">
+      <h4>Subtasks ({{ getCompletedSubtaskCount() }} of {{ task.subtasks.length
+        }})</h4>
+      <ul>
+        <li *ngFor="let subtask of task.subtasks">
+          <input type="checkbox" [checked]="subtask.isCompleted"
+            (change)="toggleSubtask(subtask)" />
+          {{ subtask.title }}
+        </li>
+      </ul>
+    </div>
+
+    <div class="task-status">
+      <label for="status">Current Status</label>
+      <select id="status" [(ngModel)]="task.status"
+        (change)="updateTaskStatus()">
+        <option value="todo">Todo</option>
+        <option value="doing">Doing</option>
+        <option value="done">Done</option>
+      </select>
+    </div>
+
+    <button class="close-modal" (click)="closeModal()">Close</button>
+  </div>
+</div>

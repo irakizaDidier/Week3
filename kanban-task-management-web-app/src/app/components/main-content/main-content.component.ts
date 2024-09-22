@@ -7,11 +7,7 @@ import {
 } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import {
-  CdkDragDrop,
-  moveItemInArray,
-  transferArrayItem,
-} from '@angular/cdk/drag-drop';
+import { CdkDragDrop, transferArrayItem } from '@angular/cdk/drag-drop';
 import * as TaskActions from '../../store/actions/task.actions';
 import { Board, Task, Column } from '../../models/task';
 import {
@@ -32,6 +28,7 @@ export class MainContentComponent implements OnChanges {
   error$!: Observable<string | null>;
   tasks: Task[] = [];
   columns: Column[] = [];
+  selectedTask: Task | null = null;
 
   constructor(private store: Store, private cdRef: ChangeDetectorRef) {}
 
@@ -119,5 +116,14 @@ export class MainContentComponent implements OnChanges {
         event.currentIndex
       );
     }
+  }
+
+  openTaskModal(task: Task): void {
+    this.selectedTask = task;
+    console.log('Opening task modal with Task:', task);
+  }
+
+  closeModal(): void {
+    this.selectedTask = null;
   }
 }

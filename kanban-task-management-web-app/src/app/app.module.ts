@@ -20,6 +20,7 @@ import { TaskModalComponent } from './components/task-modal/task-modal.component
 import { CreateBoardModalComponent } from './components/create-board-modal/create-board-modal.component';
 import { EditBoardModalComponent } from './components/edit-board-modal/edit-board-modal.component';
 import { DeleteBoardModalComponent } from './components/delete-board-modal/delete-board-modal.component';
+import { SingleTaskComponent } from './components/single-task/single-task.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { DeleteBoardModalComponent } from './components/delete-board-modal/delet
     CreateBoardModalComponent,
     EditBoardModalComponent,
     DeleteBoardModalComponent,
+    SingleTaskComponent,
   ],
   imports: [
     BrowserModule,
