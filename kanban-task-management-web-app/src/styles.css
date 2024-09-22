@@ -26,3 +26,21 @@ body.dark-mode .list {
 body.dark-mode .theme-switcher {
   background-color: #20212c;
 }
+body.dark-mode .create-column {
+  background-color: #111117;
+}
+body.dark-mode .newadd {
+  color: #414751;
+}
+body.dark-mode .modal-content {
+  @apply bg-[#2B2C37];
+}
+body.dark-mode .input-create {
+  @apply bg-[#2B2C37];
+}
+body.dark-mode .task-option {
+  @apply bg-[#2B2C37];
+}
+body.dark-mode .dropdown-menu {
+  @apply bg-[#2B2C37];
+}

@@ -178,10 +178,6 @@ input:checked + .slider:before {
   cursor: pointer;
 }
 
-.dropdown-menu li:hover {
-  background-color: #f0f0f0;
-}
-
 .dropdown-menu li.delete {
   color: red;
 }

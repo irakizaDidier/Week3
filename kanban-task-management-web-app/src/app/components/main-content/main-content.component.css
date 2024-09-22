@@ -96,7 +96,6 @@
 
 .cdk-drop-list {
   min-height: 100px;
-  background: #f4f7fd;
   padding: 8px;
   border-radius: 8px;
   transition: background 0.2s;

@@ -48,13 +48,13 @@ textarea {
 }
 
 button[type="button"] {
-  background: none;
-  border: none;
   font-size: 1rem;
-  color: red;
   cursor: pointer;
 }
 
 button[type="submit"] {
   @apply bg-[#6c63ff] text-white p-2 rounded-full w-full border-none text-base cursor-pointer mt-4;
+}
+.AddNewSubtask {
+  @apply bg-[#EFEFF9] text-[#635FC7] w-full px-3 py-2 rounded-full;
 }

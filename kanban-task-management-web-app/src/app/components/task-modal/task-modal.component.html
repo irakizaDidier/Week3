@@ -4,23 +4,28 @@
     <form>
       <label for="title">Title</label>
       <input id="title" type="text" placeholder="e.g. Take coffee break"
-        [(ngModel)]="task.title" name="title" />
+        [(ngModel)]="task.title" name="title" class="input-create"
+        class="input-create " />
 
       <label for="description">Description</label>
       <textarea id="description"
         placeholder="e.g. It’s always good to take a break. This 15-minute break will recharge the batteries a little."
-        [(ngModel)]="task.description" name="description"></textarea>
+        [(ngModel)]="task.description" name="description"
+        class="input-create"></textarea>
 
       <div *ngFor="let subtask of subtasks; let i = index" class="subtask">
         <input type="text" [(ngModel)]="subtasks[i]" name="subtask{{i}}"
-          placeholder="e.g. Make coffee" />
-        <button type="button" (click)="removeSubtask(i)">Remove</button>
+          placeholder="e.g. Make coffee" class="input-create" />
+        <button type="button" (click)="removeSubtask(i)">X</button>
       </div>
 
-      <button type="button" (click)="addSubtask()">+ Add New Subtask</button>
+      <button type="button" (click)="addSubtask()" class="AddNewSubtask my-3">+
+        Add
+        New Subtask</button>
 
-      <label for="status">Status</label>
-      <select id="status" [(ngModel)]="task.status" name="status">
+      <label for="status ">Status</label>
+      <select id="status" [(ngModel)]="task.status" name="status"
+        class="task-option">
         <option value="todo">Todo</option>
         <option value="in-progress">In Progress</option>
         <option value="done">Done</option>

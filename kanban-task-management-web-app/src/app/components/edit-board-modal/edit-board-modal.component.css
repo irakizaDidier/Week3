@@ -43,7 +43,7 @@ input {
 }
 
 .add-column-btn {
-  @apply bg-[#EFEFF9] border-none p-2 px-4 cursor-pointer rounded-full mb-4 w-full;
+  @apply bg-[#EFEFF9] text-[#9D9BDC] border-none p-2 px-4 cursor-pointer rounded-full mb-4 w-full;
 }
 
 .save-btn {

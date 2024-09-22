@@ -5,6 +5,7 @@
     <input
       id="board-name"
       type="text"
+      class="input-create"
       placeholder="e.g. Web Design"
       [(ngModel)]="boardName" />
 
@@ -13,6 +14,7 @@
       class="column">
       <input
         type="text"
+        class="input-create"
         [(ngModel)]="column.name"
         placeholder="Enter column name" />
       <button type="button" (click)="removeColumn(i)">&#x2715;</button>

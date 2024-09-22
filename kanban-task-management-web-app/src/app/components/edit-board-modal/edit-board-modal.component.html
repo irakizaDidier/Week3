@@ -4,14 +4,15 @@
 
     <form>
       <label for="title">Title</label>
-      <input id="title" type="text" placeholder="e.g. Platform Launch" />
+      <input id="title" type="text" placeholder="e.g. Platform Launch"
+        class="input-create " />
 
       <div class="columns">
         <label for="columns">Columns</label>
         <div *ngFor="let column of columns; let i = index" class="column">
           <input
             [value]="column"
-            class="column-input mx-2"
+            class="column-input mx-2 input-create "
             placeholder="e.g. Todo"
             (change)="updateColumn($event, i)" />
 
