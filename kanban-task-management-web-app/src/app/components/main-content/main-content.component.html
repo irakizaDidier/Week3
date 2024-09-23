@@ -25,7 +25,7 @@
           <ul cdkDropList [cdkDropListData]="getTasksByStatus(column.name)"
             (cdkDropListDropped)="drop($event, column.name)">
             <div *ngFor="let task of getTasksByStatus(column.name)">
-              <li cdkDrag [ngClass]="task.status" class="list"
+              <li cdkDrag [ngClass]="task.status" class="list cursor-pointer"
                 (click)="openTaskModal(task)">
                 <h4>{{ task.title }}</h4>
                 <p class="subtask ">{{ getCompletedSubtaskCount(task)
@@ -39,11 +39,20 @@
 
       <div class="column create-column">
         <div class="create-task-btn">
-          <button (click)="addNewColumn()" class="newadd">+ New Column</button>
+          <button class="newadd cursor-pointer" (click)="openEditBoardModal()">+
+            New Column</button>
         </div>
       </div>
     </div>
   </ng-container>
 
   <app-single-task *ngIf="selectedTask" [task]="selectedTask"></app-single-task>
+</div>
+
+<div *ngIf="isEditBoardModalOpen" class="modal-overlay"
+  (click)="closeEditBoardModal()">
+  <div *ngIf="isEditBoardModalOpen" class="modal-overlay">
+    <app-edit-board-modal
+      (close)="closeEditBoardModal()"></app-edit-board-modal>
+  </div>
 </div>

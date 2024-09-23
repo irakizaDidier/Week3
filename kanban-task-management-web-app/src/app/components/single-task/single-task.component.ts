@@ -7,7 +7,7 @@ import { Task } from '../../models/task';
   styleUrls: ['./single-task.component.css'],
 })
 export class SingleTaskComponent implements OnInit {
-  @Input() task!: Task;
+  @Input() task?: Task;
 
   ngOnInit(): void {
     console.log('Received Task:', this.task);
@@ -19,14 +19,21 @@ export class SingleTaskComponent implements OnInit {
   }
 
   updateTaskStatus(): void {
-    console.log('Updating task status to:', this.task.status);
+    console.log('Updating task status to:', this.task?.status);
   }
 
   getCompletedSubtaskCount(): number {
-    return this.task.subtasks.filter((subtask) => subtask.isCompleted).length;
+    return (
+      this.task?.subtasks.filter((subtask) => subtask.isCompleted).length || 0
+    );
   }
 
   closeModal(): void {
+    this.task = undefined;
     console.log('Modal closed');
+  }
+
+  onContainerClick(event: MouseEvent): void {
+    this.closeModal();
   }
 }

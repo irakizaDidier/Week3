@@ -1,5 +1,5 @@
-<div class="modal-container" *ngIf="task">
-  <div class="modal">
+<div class="modal-container" *ngIf="task" (click)="onContainerClick($event)">
+  <div class="modal-content" (click)="$event.stopPropagation()">
     <h3>{{ task.title }}</h3>
     <p>{{ task.description }}</p>
 
@@ -9,7 +9,7 @@
       <ul>
         <li *ngFor="let subtask of task.subtasks">
           <input type="checkbox" [checked]="subtask.isCompleted"
-            (change)="toggleSubtask(subtask)" />
+            (change)="toggleSubtask(subtask)" class="input-create" />
           {{ subtask.title }}
         </li>
       </ul>
@@ -18,13 +18,11 @@
     <div class="task-status">
       <label for="status">Current Status</label>
       <select id="status" [(ngModel)]="task.status"
-        (change)="updateTaskStatus()">
+        (change)="updateTaskStatus()" class="input-create">
         <option value="todo">Todo</option>
         <option value="doing">Doing</option>
         <option value="done">Done</option>
       </select>
     </div>
-
-    <button class="close-modal" (click)="closeModal()">Close</button>
   </div>
 </div>

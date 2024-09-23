@@ -4,6 +4,17 @@
 
 .modal-content {
   @apply bg-white p-8 rounded-lg w-11/12 max-w-[500px] shadow-lg relative;
+  max-height: 80vh;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+
+.modal-content::-webkit-scrollbar {
+  display: none;
+}
+
+.modal-content {
+  @apply p-8;
 }
 
 input {

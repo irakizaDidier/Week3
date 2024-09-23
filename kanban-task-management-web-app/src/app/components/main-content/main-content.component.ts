@@ -29,6 +29,7 @@ export class MainContentComponent implements OnChanges {
   tasks: Task[] = [];
   columns: Column[] = [];
   selectedTask: Task | null = null;
+  isEditBoardModalOpen: boolean = false;
 
   constructor(private store: Store, private cdRef: ChangeDetectorRef) {}
 
@@ -101,7 +102,6 @@ export class MainContentComponent implements OnChanges {
     }
   }
 
-  addNewColumn(): void {}
 
   drop(event: CdkDragDrop<Task[]>, newStatus: string): void {
     if (event.previousContainer !== event.container) {
@@ -125,5 +125,12 @@ export class MainContentComponent implements OnChanges {
 
   closeModal(): void {
     this.selectedTask = null;
+  }
+
+  closeEditBoardModal() {
+    this.isEditBoardModalOpen = false;
+  }
+  openEditBoardModal() {
+    this.isEditBoardModalOpen = true;
   }
 }
