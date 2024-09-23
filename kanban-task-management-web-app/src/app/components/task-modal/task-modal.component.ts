@@ -1,36 +1,57 @@
 import { Component, EventEmitter, Output } from '@angular/core';
+import { Store } from '@ngrx/store';
+import * as TaskActions from '../../store/actions/task.actions';
+import { Task } from '../../models/task';
 
 @Component({
   selector: 'app-task-modal',
   templateUrl: './task-modal.component.html',
-  styleUrls: ['./task-modal.component.css']
+  styleUrls: ['./task-modal.component.css'],
 })
 export class TaskModalComponent {
-  task = {
+  task: Task = {
     title: '',
     description: '',
-    status: 'todo'
+    status: '',
+    subtasks: [],
   };
-
-  subtasks: string[] = [''];
+  subtasks: { title: string }[] = [{ title: '' }];
 
   @Output() close = new EventEmitter<void>();
-  @Output() addTask = new EventEmitter<any>();
+
+  constructor(private store: Store) {}
 
   closeModal() {
     this.close.emit();
   }
 
   createTask() {
-    this.addTask.emit({ ...this.task, subtasks: this.subtasks });
-    this.closeModal();
+    if (!this.task.title || !this.task.status) {
+      alert('Please fill in the required fields.');
+      return;
+    }
+
+    this.task.subtasks = this.subtasks.map((subtask) => ({
+      title: subtask.title,
+      isCompleted: false,
+    }));
+
+    this.store.dispatch(TaskActions.addTask({ task: this.task }));
+    this.close.emit();
   }
 
   addSubtask() {
-    this.subtasks.push('');
+    this.subtasks.push({ title: '' });
   }
 
   removeSubtask(index: number) {
     this.subtasks.splice(index, 1);
+  }
+
+  handleFocus(index: number) {
+    const inputElement = document.querySelector(`[name="subtask${index}"]`);
+    if (inputElement) {
+      (inputElement as HTMLElement).focus();
+    }
   }
 }

@@ -1,118 +1,107 @@
-import { inject, Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Actions, ofType, createEffect } from '@ngrx/effects';
 import { HttpClient } from '@angular/common/http';
-import { Store } from '@ngrx/store';
-import { of, Subscription } from 'rxjs';
+import { of } from 'rxjs';
 import { catchError, map, mergeMap } from 'rxjs/operators';
 import * as TaskActions from '../actions/task.actions';
 import { BoardsResponse } from '../../models/task';
 
 @Injectable()
 export class TaskEffects {
-  private readonly dataUrl = '/assets/data/data.json';
-  private subscription: Subscription;
+  private readonly dataUrl = '/assets/data/data.json'; 
 
-  constructor(private http: HttpClient, private store: Store) {
-    this.subscription = this.handleLoadTasks();
-    this.subscription.add(this.handleAddTask());
-    this.subscription.add(this.handleUpdateTask());
-    this.subscription.add(this.handleDeleteTask());
-    this.subscription.add(this.handleUpdateSubtaskStatus());
-  }
+  constructor(private http: HttpClient) {}
 
   private actions$ = inject(Actions);
 
-  private handleLoadTasks(): Subscription {
-    return this.actions$
-      .pipe(
-        ofType(TaskActions.loadTasks),
-        mergeMap(() =>
-          this.http.get<BoardsResponse>(this.dataUrl).pipe(
-            map((data) => {
-              return TaskActions.loadTasksSuccess({ boards: data.boards });
-            }),
-            catchError((error) => {
-              return of(TaskActions.loadTasksFailure({ error: error.message }));
-            })
+
+  loadTasks$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(TaskActions.loadTasks),
+      mergeMap(() =>
+        this.http.get<BoardsResponse>(this.dataUrl).pipe(
+          map((data) => TaskActions.loadTasksSuccess({ boards: data.boards })),
+          catchError((error) =>
+            of(TaskActions.loadTasksFailure({ error: error.message }))
           )
         )
       )
-      .subscribe((action) => this.store.dispatch(action));
-  }
+    )
+  );
 
-  private handleAddTask(): Subscription {
-    return this.actions$
-      .pipe(
+  addTask$ = createEffect(
+    () =>
+      this.actions$.pipe(
         ofType(TaskActions.addTask),
         map((action) => {
-          const task = action.task;
+          const { task } = action;
           console.log('Adding task:', task);
-          return TaskActions.addTask({ task });
+          return { type: '[Task/API] Add Task Success' };
         }),
         catchError((error) =>
-          of({ type: '[Task/API] Add Task Failure', error: error.message })
+          of(TaskActions.loadTasksFailure({ error: error.message }))
         )
-      )
-      .subscribe((action) => this.store.dispatch(action));
-  }
+      ),
+    { dispatch: true }
+  );
 
-  private handleUpdateTask(): Subscription {
-    return this.actions$
-      .pipe(
+  updateTask$ = createEffect(
+    () =>
+      this.actions$.pipe(
         ofType(TaskActions.updateTask),
         map((action) => {
-          const task = action.task;
-          return TaskActions.updateTask({ task });
+          const { task } = action;
+          console.log('Updating task:', task);
+          return { type: '[Task/API] Update Task Success' };
         }),
         catchError((error) =>
-          of({ type: '[Task/API] Update Task Failure', error: error.message })
+          of(TaskActions.loadTasksFailure({ error: error.message }))
         )
-      )
-      .subscribe((action) => this.store.dispatch(action));
-  }
+      ),
+    { dispatch: true }
+  );
 
-  private handleDeleteTask(): Subscription {
-    return this.actions$
-      .pipe(
+  deleteTask$ = createEffect(
+    () =>
+      this.actions$.pipe(
         ofType(TaskActions.deleteTask),
         map((action) => {
-          const taskTitle = action.taskTitle;
-          return TaskActions.deleteTask({ taskTitle });
+          const { taskTitle } = action;
+          console.log('Deleting task with title:', taskTitle);
+          return { type: '[Task/API] Delete Task Success' };
         }),
         catchError((error) =>
-          of({ type: '[Task/API] Delete Task Failure', error: error.message })
+          of(TaskActions.loadTasksFailure({ error: error.message }))
         )
-      )
-      .subscribe((action) => this.store.dispatch(action));
-  }
+      ),
+    { dispatch: true }
+  );
 
-  private handleUpdateSubtaskStatus(): Subscription {
-    return this.actions$
-      .pipe(
-        ofType(TaskActions.updateSubtaskStatus),
-        map((action) => {
-          const { taskTitle, subtaskTitle, isCompleted } = action;
-          return TaskActions.updateSubtaskStatus({
-            taskTitle,
-            subtaskTitle,
-            isCompleted,
-          });
-        }),
-        catchError((error) =>
-          of({
-            type: '[Subtask/API] Update Subtask Status Failure',
-            error: error.message,
-          })
-        )
+  updateSubtaskStatus$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(TaskActions.updateSubtaskStatus),
+      map((action) => {
+        const { taskTitle, subtaskTitle, isCompleted } = action;
+        console.log(
+          `Updating subtask "${subtaskTitle}" for task "${taskTitle}" to completed: ${isCompleted}`
+        );
+        return { type: '[Subtask/API] Update Subtask Status Success' };
+      }),
+      catchError((error) =>
+        of({
+          type: '[Subtask/API] Update Subtask Status Failure',
+          error: error.message,
+        })
       )
-      .subscribe((action) => this.store.dispatch(action));
-  }
+    )
+  );
 
   createBoard$ = createEffect(() =>
     this.actions$.pipe(
       ofType(TaskActions.createBoard),
       map((action) => {
-        const board = action.board;
+        const { board } = action;
+        console.log('Creating board:', board);
         return TaskActions.addBoard({ board });
       })
     )

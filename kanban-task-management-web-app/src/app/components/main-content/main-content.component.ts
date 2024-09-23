@@ -10,11 +10,7 @@ import { Observable } from 'rxjs';
 import { CdkDragDrop, transferArrayItem } from '@angular/cdk/drag-drop';
 import * as TaskActions from '../../store/actions/task.actions';
 import { Board, Task, Column } from '../../models/task';
-import {
-  selectAllBoards,
-  selectTaskLoading,
-  selectTaskError,
-} from '../../store/selectors/task.selectors';
+import { selectAllBoards } from '../../store/selectors/task.selectors';
 
 @Component({
   selector: 'app-main-content',
@@ -43,8 +39,6 @@ export class MainContentComponent implements OnChanges {
     this.store.dispatch(TaskActions.loadTasks());
 
     this.boards$ = this.store.select(selectAllBoards);
-    this.loading$ = this.store.select(selectTaskLoading);
-    this.error$ = this.store.select(selectTaskError);
     this.boards$.subscribe((boards) => {
       if (boards.length > 0) {
         this.loadBoardData(this.selectedBoard);
@@ -101,7 +95,6 @@ export class MainContentComponent implements OnChanges {
         return '';
     }
   }
-
 
   drop(event: CdkDragDrop<Task[]>, newStatus: string): void {
     if (event.previousContainer !== event.container) {

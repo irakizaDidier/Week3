@@ -11,7 +11,7 @@ export interface TaskState extends EntityState<Task> {
 }
 
 export const adapter = createEntityAdapter<Task>({
-  selectId: (task: Task) => task.id,
+  selectId: (task: Task) => task.title,
 });
 
 export const initialState: TaskState = adapter.getInitialState({
@@ -28,30 +28,36 @@ export const taskReducer = createReducer(
     loading: true,
     error: null,
   })),
+
   on(TaskActions.loadTasksSuccess, (state, { boards }) => ({
     ...state,
     boards,
     loading: false,
   })),
+
   on(TaskActions.loadTasksFailure, (state, { error }) => ({
     ...state,
     loading: false,
     error,
   })),
+
   on(TaskActions.addTask, (state, { task }) => adapter.addOne(task, state)),
+
   on(TaskActions.updateTask, (state, { task }) =>
-    adapter.updateOne({ id: task.id, changes: task }, state)
+    adapter.updateOne({ id: task.title, changes: task }, state)
   ),
+
   on(TaskActions.deleteTask, (state, { taskTitle }) =>
     adapter.removeOne(taskTitle, state)
   ),
+
   on(
     TaskActions.updateSubtaskStatus,
     (state, { taskTitle, subtaskTitle, isCompleted }) => {
-      const task = state.entities[taskTitle];
-      if (task) {
-        const updatedSubtasks = task.subtasks.map((subtask) =>
-          subtask.id === subtaskTitle ? { ...subtask, isCompleted } : subtask
+      const taskEntity = state.entities[taskTitle];
+      if (taskEntity) {
+        const updatedSubtasks = taskEntity.subtasks.map((subtask) =>
+          subtask.title === subtaskTitle ? { ...subtask, isCompleted } : subtask
         );
         return adapter.updateOne(
           { id: taskTitle, changes: { subtasks: updatedSubtasks } },
@@ -61,6 +67,7 @@ export const taskReducer = createReducer(
       return state;
     }
   ),
+
   on(TaskActions.addBoard, (state, { board }) => ({
     ...state,
     boards: [...state.boards, board],

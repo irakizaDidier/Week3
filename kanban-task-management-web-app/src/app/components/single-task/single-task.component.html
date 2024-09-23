@@ -3,18 +3,23 @@
     <h3>{{ task.title }}</h3>
     <p>{{ task.description }}</p>
 
+    <!-- Subtasks section -->
     <div class="subtasks">
       <h4>Subtasks ({{ getCompletedSubtaskCount() }} of {{ task.subtasks.length
         }})</h4>
       <ul>
         <li *ngFor="let subtask of task.subtasks">
-          <input type="checkbox" [checked]="subtask.isCompleted"
-            (change)="toggleSubtask(subtask)" class="input-create" />
+          <input
+            type="checkbox"
+            [checked]="subtask.isCompleted"
+            (change)="toggleSubtask(subtask)"
+            class="input-create" />
           {{ subtask.title }}
         </li>
       </ul>
     </div>
 
+    <!-- Task status update section -->
     <div class="task-status">
       <label for="status">Current Status</label>
       <select id="status" [(ngModel)]="task.status"
