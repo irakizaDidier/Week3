@@ -1,21 +1,23 @@
 import { createSelector, createFeatureSelector } from '@ngrx/store';
-import { TaskState } from '../reducers/task.reducers';
+import { TaskState, adapter } from '../reducers/task.reducers';
 import { Board, Column, Task } from '../../models/task';
 
 export const selectTaskState = createFeatureSelector<TaskState>('tasks');
 
+export const selectAllTasks = createSelector(
+  selectTaskState,
+  adapter.getSelectors().selectAll
+);
 
 export const selectAllBoards = createSelector(
   selectTaskState,
   (state: TaskState) => state.boards
 );
 
-
 export const selectBoardByName = (boardName: string) =>
   createSelector(selectAllBoards, (boards: Board[]) => {
     return boards.find((board) => board.name === boardName);
   });
-
 
 export const selectColumnByName = (boardName: string, columnName: string) =>
   createSelector(selectBoardByName(boardName), (board: Board | undefined) => {
@@ -37,3 +39,8 @@ export const selectTaskByTitle = (
         : undefined;
     }
   );
+
+export const selectTasksByBoard = (boardName: string) =>
+  createSelector(selectBoardByName(boardName), (board: Board | undefined) => {
+    return board ? board.columns.flatMap((column) => column.tasks) : [];
+  });

@@ -1,7 +1,9 @@
-import { Component, EventEmitter, Output } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { Component, EventEmitter, Output, Input } from '@angular/core';
+import { Store, select } from '@ngrx/store';
 import * as TaskActions from '../../store/actions/task.actions';
 import { Task } from '../../models/task';
+import { selectBoardByName } from '../../store/selectors/task.selectors';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-task-modal',
@@ -9,6 +11,7 @@ import { Task } from '../../models/task';
   styleUrls: ['./task-modal.component.css'],
 })
 export class TaskModalComponent {
+  @Input() currentBoardName: string = '';
   task: Task = {
     title: '',
     description: '',
@@ -25,7 +28,7 @@ export class TaskModalComponent {
     this.close.emit();
   }
 
-  createTask() {
+  async createTask() {
     if (!this.task.title || !this.task.status) {
       alert('Please fill in the required fields.');
       return;
@@ -36,7 +39,21 @@ export class TaskModalComponent {
       isCompleted: false,
     }));
 
-    this.store.dispatch(TaskActions.addTask({ task: this.task }));
+    try {
+      const board = await firstValueFrom(
+        this.store.pipe(select(selectBoardByName(this.currentBoardName)))
+      );
+
+      if (board) {
+        this.store.dispatch(
+          TaskActions.addTask({
+            task: this.task,
+            boardName: this.currentBoardName,
+          })
+        );
+      }
+    } catch (error) {}
+
     this.close.emit();
   }
 

@@ -15,7 +15,7 @@ export const loadTasksFailure = createAction(
 
 export const addTask = createAction(
   '[Task/API] Add Task',
-  props<{ task: Task }>()
+  props<{ task: Task; boardName: string }>()
 );
 
 export const updateTask = createAction(

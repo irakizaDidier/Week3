@@ -59,8 +59,11 @@
     </div>
   </div>
 </div>
-<app-task-modal *ngIf="isModalOpen" (close)="closeModal()"
-  (addTask)="addTask($event)"></app-task-modal>
+<app-task-modal
+  *ngIf="isModalOpen"
+  [currentBoardName]="selectedBoardTitle"
+  (close)="closeModal()">
+</app-task-modal>
 
 <div *ngIf="isEditBoardModalOpen" class="modal-overlay"
   (click)="closeEditBoardModal()">

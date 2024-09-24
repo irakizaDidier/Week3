@@ -11,7 +11,7 @@ export interface TaskState extends EntityState<Task> {
 }
 
 export const adapter = createEntityAdapter<Task>({
-  selectId: (task: Task) => task.title,
+  selectId: (task: Task) => task.title, // Assuming title is unique
 });
 
 export const initialState: TaskState = adapter.getInitialState({
@@ -41,7 +41,28 @@ export const taskReducer = createReducer(
     error,
   })),
 
-  on(TaskActions.addTask, (state, { task }) => adapter.addOne(task, state)),
+  on(TaskActions.addTask, (state, { task, boardName }) => {
+    const board = state.boards.find(b => b.name === boardName);
+    if (board) {
+      const updatedColumns = board.columns.map(column => {
+        if (column.name === task.status) {
+          return {
+            ...column,
+            tasks: [...column.tasks, task],
+          };
+        }
+        return column;
+      });
+      const updatedBoard = { ...board, columns: updatedColumns };
+
+      return {
+        ...state,
+        boards: state.boards.map(b => (b.name === boardName ? updatedBoard : b)), // Replace the updated board
+      };
+    }
+
+    return state;
+  }),
 
   on(TaskActions.updateTask, (state, { task }) =>
     adapter.updateOne({ id: task.title, changes: task }, state)

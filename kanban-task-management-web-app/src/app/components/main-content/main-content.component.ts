@@ -4,20 +4,25 @@ import {
   Input,
   OnChanges,
   SimpleChanges,
+  OnDestroy,
 } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { CdkDragDrop, transferArrayItem } from '@angular/cdk/drag-drop';
 import * as TaskActions from '../../store/actions/task.actions';
 import { Board, Task, Column } from '../../models/task';
-import { selectAllBoards } from '../../store/selectors/task.selectors';
+import {
+  selectAllBoards,
+  selectTasksByBoard,
+} from '../../store/selectors/task.selectors';
 
 @Component({
   selector: 'app-main-content',
   templateUrl: './main-content.component.html',
   styleUrls: ['./main-content.component.css'],
 })
-export class MainContentComponent implements OnChanges {
+export class MainContentComponent implements OnChanges, OnDestroy {
   @Input() selectedBoard!: string;
   boards$!: Observable<Board[]>;
   loading$!: Observable<boolean>;
@@ -27,38 +32,49 @@ export class MainContentComponent implements OnChanges {
   selectedTask: Task | null = null;
   isEditBoardModalOpen: boolean = false;
 
+  private boards: Board[] = [];
+  private unsubscribe$ = new Subject<void>();
+
   constructor(private store: Store, private cdRef: ChangeDetectorRef) {}
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['selectedBoard']) {
-      this.loadBoardData(this.selectedBoard);
+    if (changes['selectedBoard'] && this.boards.length > 0) {
+      this.loadBoardData(this.selectedBoard, this.boards);
     }
   }
 
   ngOnInit(): void {
     this.store.dispatch(TaskActions.loadTasks());
-
     this.boards$ = this.store.select(selectAllBoards);
-    this.boards$.subscribe((boards) => {
-      if (boards.length > 0) {
-        this.loadBoardData(this.selectedBoard);
-      }
-    });
+    this.boards$
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((boards) => {
+        this.boards = boards;
+        if (this.selectedBoard) {
+          this.loadBoardData(this.selectedBoard, this.boards);
+        }
+      });
+
+    this.store
+      .select(selectTasksByBoard(this.selectedBoard))
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((tasks) => {
+        this.tasks = tasks;
+        this.cdRef.detectChanges();
+      });
   }
 
-  loadBoardData(boardName: string): void {
-    if (!this.boards$) {
-      return;
+  ngOnDestroy(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
+  }
+
+  loadBoardData(boardName: string, boards: Board[]): void {
+    const selectedBoard = boards.find((board) => board.name === boardName);
+    if (selectedBoard) {
+      this.columns = selectedBoard.columns;
+      this.cdRef.detectChanges();
     }
-
-    this.boards$.subscribe((boards) => {
-      const selectedBoard = boards.find((board) => board.name === boardName);
-
-      if (selectedBoard) {
-        this.tasks = selectedBoard.columns.flatMap((column) => column.tasks);
-        this.columns = selectedBoard.columns;
-      }
-    });
   }
 
   getColumns(): Column[] {
@@ -69,7 +85,8 @@ export class MainContentComponent implements OnChanges {
     const filteredColumns = this.columns.filter(
       (column) => column.name === status
     );
-    return filteredColumns.flatMap((column) => column.tasks);
+    const tasks = filteredColumns.flatMap((column) => column.tasks);
+    return tasks;
   }
 
   getTaskCountByStatus(status: string): number {
@@ -100,7 +117,6 @@ export class MainContentComponent implements OnChanges {
     if (event.previousContainer !== event.container) {
       const task = { ...event.previousContainer.data[event.previousIndex] };
       const updatedTask = { ...task, status: newStatus };
-      console.log('Updated Task:', updatedTask);
       this.store.dispatch(TaskActions.updateTask({ task: updatedTask }));
       transferArrayItem(
         event.previousContainer.data,
@@ -113,7 +129,6 @@ export class MainContentComponent implements OnChanges {
 
   openTaskModal(task: Task): void {
     this.selectedTask = task;
-    console.log('Opening task modal with Task:', task);
   }
 
   closeModal(): void {
@@ -123,6 +138,7 @@ export class MainContentComponent implements OnChanges {
   closeEditBoardModal() {
     this.isEditBoardModalOpen = false;
   }
+
   openEditBoardModal() {
     this.isEditBoardModalOpen = true;
   }
