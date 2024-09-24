@@ -1,7 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Task } from '../../models/task';
+import { Subtask, Task } from '../../models/task';
 import * as TaskActions from '../../store/actions/task.actions';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-single-task',
@@ -10,16 +11,20 @@ import * as TaskActions from '../../store/actions/task.actions';
 })
 export class SingleTaskComponent implements OnInit {
   @Input() task?: Task;
+  status: string = '';
 
-  constructor(private store: Store) {}
+  constructor(private store: Store, private cdRef: ChangeDetectorRef) {}
 
   ngOnInit(): void {
-    console.log('Received Task:', this.task);
+    if (this.task) {
+      this.status = this.task.status;
+    }
   }
 
-  toggleSubtask(subtask: any): void {
+  toggleSubtask(subtask: Subtask): void {
     if (this.task) {
       const updatedSubtaskStatus = !subtask.isCompleted;
+
       this.store.dispatch(
         TaskActions.updateSubtaskStatus({
           taskTitle: this.task.title,
@@ -27,12 +32,44 @@ export class SingleTaskComponent implements OnInit {
           isCompleted: updatedSubtaskStatus,
         })
       );
+
+      this.updateTaskStatus();
+    }
+  }
+
+  onStatusChange(newStatus: string): void {
+    if (this.task) {
+      const updatedTask = {
+        ...this.task,
+        status: newStatus,
+      };
+
+      this.store.dispatch(TaskActions.updateTask({ task: updatedTask }));
     }
   }
 
   updateTaskStatus(): void {
     if (this.task) {
-      this.store.dispatch(TaskActions.updateTask({ task: this.task }));
+      const allSubtasks = this.task.subtasks.length;
+      const completedSubtasks = this.getCompletedSubtaskCount();
+
+      let newStatus: string;
+      if (completedSubtasks === 0) {
+        newStatus = 'Todo';
+      } else if (completedSubtasks < allSubtasks) {
+        newStatus = 'Doing';
+      } else {
+        newStatus = 'Done';
+      }
+
+      if (this.task.status !== newStatus) {
+        const updatedTask = {
+          ...this.task,
+          status: newStatus,
+        };
+
+        this.store.dispatch(TaskActions.updateTask({ task: updatedTask }));
+      }
     }
   }
 
@@ -44,7 +81,8 @@ export class SingleTaskComponent implements OnInit {
 
   closeModal(): void {
     this.task = undefined;
-    console.log('Modal closed');
+    this.store.dispatch(TaskActions.clearSelectedTask());
+    this.cdRef.detectChanges(); 
   }
 
   onContainerClick(event: MouseEvent): void {

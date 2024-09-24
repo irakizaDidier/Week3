@@ -42,3 +42,5 @@ export const addBoard = createAction(
   '[Board/API] Add Board',
   props<{ board: Board }>()
 );
+
+export const clearSelectedTask = createAction('[Task] Clear Selected Task');

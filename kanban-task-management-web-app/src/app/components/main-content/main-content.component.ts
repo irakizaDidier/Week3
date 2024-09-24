@@ -45,22 +45,22 @@ export class MainContentComponent implements OnChanges, OnDestroy {
 
   ngOnInit(): void {
     this.store.dispatch(TaskActions.loadTasks());
+
     this.boards$ = this.store.select(selectAllBoards);
-    this.boards$
-      .pipe(takeUntil(this.unsubscribe$))
-      .subscribe((boards) => {
-        this.boards = boards;
-        if (this.selectedBoard) {
-          this.loadBoardData(this.selectedBoard, this.boards);
-        }
-      });
+    this.boards$.pipe(takeUntil(this.unsubscribe$)).subscribe((boards) => {
+      this.boards = boards;
+      if (this.selectedBoard) {
+        this.loadBoardData(this.selectedBoard, this.boards);
+      }
+      this.cdRef.markForCheck();
+    });
 
     this.store
       .select(selectTasksByBoard(this.selectedBoard))
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((tasks) => {
         this.tasks = tasks;
-        this.cdRef.detectChanges();
+        this.cdRef.markForCheck();
       });
   }
 
@@ -129,10 +129,12 @@ export class MainContentComponent implements OnChanges, OnDestroy {
 
   openTaskModal(task: Task): void {
     this.selectedTask = task;
+    this.cdRef.detectChanges();
   }
 
   closeModal(): void {
     this.selectedTask = null;
+    this.cdRef.detectChanges();
   }
 
   closeEditBoardModal() {

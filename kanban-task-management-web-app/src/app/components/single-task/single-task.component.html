@@ -3,7 +3,6 @@
     <h3>{{ task.title }}</h3>
     <p>{{ task.description }}</p>
 
-    <!-- Subtasks section -->
     <div class="subtasks">
       <h4>Subtasks ({{ getCompletedSubtaskCount() }} of {{ task.subtasks.length
         }})</h4>
@@ -19,15 +18,15 @@
       </ul>
     </div>
 
-    <!-- Task status update section -->
     <div class="task-status">
       <label for="status">Current Status</label>
-      <select id="status" [(ngModel)]="task.status"
-        (change)="updateTaskStatus()" class="input-create">
-        <option value="todo">Todo</option>
-        <option value="doing">Doing</option>
-        <option value="done">Done</option>
+      <select id="status" [(ngModel)]="status"
+        (ngModelChange)="onStatusChange($event)" class="input-create">
+        <option value="Todo">Todo</option>
+        <option value="Doing">Doing</option>
+        <option value="Done">Done</option>
       </select>
+
     </div>
   </div>
 </div>

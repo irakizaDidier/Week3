@@ -8,12 +8,11 @@ import { BoardsResponse } from '../../models/task';
 
 @Injectable()
 export class TaskEffects {
-  private readonly dataUrl = '/assets/data/data.json'; 
+  private readonly dataUrl = '/assets/data/data.json';
 
   constructor(private http: HttpClient) {}
 
   private actions$ = inject(Actions);
-
 
   loadTasks$ = createEffect(() =>
     this.actions$.pipe(
@@ -35,7 +34,6 @@ export class TaskEffects {
         ofType(TaskActions.addTask),
         map((action) => {
           const { task } = action;
-          console.log('Adding task:', task);
           return { type: '[Task/API] Add Task Success' };
         }),
         catchError((error) =>
@@ -51,7 +49,6 @@ export class TaskEffects {
         ofType(TaskActions.updateTask),
         map((action) => {
           const { task } = action;
-          console.log('Updating task:', task);
           return { type: '[Task/API] Update Task Success' };
         }),
         catchError((error) =>
@@ -67,7 +64,6 @@ export class TaskEffects {
         ofType(TaskActions.deleteTask),
         map((action) => {
           const { taskTitle } = action;
-          console.log('Deleting task with title:', taskTitle);
           return { type: '[Task/API] Delete Task Success' };
         }),
         catchError((error) =>
@@ -82,9 +78,6 @@ export class TaskEffects {
       ofType(TaskActions.updateSubtaskStatus),
       map((action) => {
         const { taskTitle, subtaskTitle, isCompleted } = action;
-        console.log(
-          `Updating subtask "${subtaskTitle}" for task "${taskTitle}" to completed: ${isCompleted}`
-        );
         return { type: '[Subtask/API] Update Subtask Status Success' };
       }),
       catchError((error) =>
@@ -101,7 +94,6 @@ export class TaskEffects {
       ofType(TaskActions.createBoard),
       map((action) => {
         const { board } = action;
-        console.log('Creating board:', board);
         return TaskActions.addBoard({ board });
       })
     )
